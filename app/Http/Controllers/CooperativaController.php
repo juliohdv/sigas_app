@@ -3,9 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cooperativa;
 
 class CooperativaController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:ver-cooperativa | crear-cooperativa | editar-cooperativa | borrar-cooperativa', ['only'=>['index']]);
+        $this->middleware('permission:crear-cooperativa', ['only'=>['create','store']]);
+        $this->middleware('permission:editar-cooperativa', ['only'=>['edit','update']]);
+        $this->middleware('permission:borrar-cooperativa', ['only'=>['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +22,8 @@ class CooperativaController extends Controller
     public function index()
     {
         //
+        $cooperativas = Cooperativa::paginate(5);
+        return view('cooperativas.index',compact('cooperativas'));
     }
 
     /**
@@ -23,7 +33,7 @@ class CooperativaController extends Controller
      */
     public function create()
     {
-        //
+        return view('cooperativas.crear');
     }
 
     /**
@@ -35,6 +45,14 @@ class CooperativaController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'nombre' => 'required',
+            'mision' => 'required',
+            'vision' => 'required',
+            'logo_url' => 'required',
+        ]);
+        Cooperativa::create($request->all());
+        return redirect()->route('cooperativas.index');
     }
 
     /**
@@ -54,9 +72,10 @@ class CooperativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cooperativa $cooperativa)
     {
         //
+        return view('cooperativas.editar',compact('cooperativa'));
     }
 
     /**
@@ -66,9 +85,17 @@ class CooperativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cooperativa $cooperativa)
     {
         //
+        request()->validate([
+            'nombre' => 'required',
+            'mision' => 'required',
+            'vision' => 'required',
+            'logo_url' => 'required',
+        ]);
+        $cooperativa->update($request->all());
+        return redirect()->route('cooperativas.index');
     }
 
     /**
@@ -77,8 +104,10 @@ class CooperativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cooperativa $cooperativa)
     {
         //
+        $cooperativa->delete();
+        return view('cooperativas.index');
     }
 }
