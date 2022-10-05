@@ -14,5 +14,8 @@
     <a class="nav-link" href="/">
         <i class=" fas fa-file-contract "></i><span>Solicitud de Registro</span>
     </a>
+    <a class="nav-link" href="/paises">
+        <i class=" fas fa-file-contract "></i><span>Paises</span>
+    </a>
 </li>
 

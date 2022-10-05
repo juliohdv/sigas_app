@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/iziToast.min.css') }}">
     <link href="{{ asset('assets/css/sweetalert.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
-
+    <!--LIVEWIRE Styles-->
+    @livewireStyles
 @yield('page_css')
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
@@ -46,7 +47,8 @@
 
 @include('profile.change_password')
 @include('profile.edit_profile')
-
+    <!--LIVEWIRE Scripts-->
+    @livewireScripts
 </body>
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/popper.min.js') }}"></script>
