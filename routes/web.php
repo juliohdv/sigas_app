@@ -8,6 +8,7 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\CooperativaController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\SolicitudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,6 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('cooperativas', CooperativaController::class);
     Route::resource('paises', PaisController::class);
+    Route::resource('solicitudes', SolicitudController::class);
     
 });

@@ -11,7 +11,7 @@
         <a class="nav-link" href="/roles">
         <i class=" fas fa-user-lock "></i><span>Roles</span>
     </a>
-    <a class="nav-link" href="/">
+    <a class="nav-link" href="/solicitudes">
         <i class=" fas fa-file-contract "></i><span>Solicitud de Registro</span>
     </a>
     <a class="nav-link" href="/paises">

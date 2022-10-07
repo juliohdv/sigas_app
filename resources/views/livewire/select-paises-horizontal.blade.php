@@ -1,5 +1,6 @@
-<div>
-    <div class="form-group">
+
+    <div class="form-row">
+    <div class="form-group col-lg-3">
         <label for="">País de nacimiento:</label>
         <select wire:model="paisSeleccionado" name="paises" id="paises" class="form-control">
             <option>Seleccione un país...</option>
@@ -10,7 +11,7 @@
     </div>
     
     @if(!is_null($regiones))
-    <div class="form-group">
+    <div class="form-group col-lg-3">
     <label for="">Estado o Departamento:</label>
     
         <select wire:model="regionSeleccionada" name="regiones" id="regiones" class="form-control">
@@ -23,7 +24,7 @@
     @endif
     
     @if(!is_null($subregiones))
-    <div class="form-group">
+    <div class="form-group col-lg-3">
     <label for="">Ciudad o Municipio:</label>
         <select wire:model="subRegionSeleccionada" name="subRegiones" id="subRegiones" class="form-control">
             <option>Seleccione una sub-región...</option>
@@ -37,3 +38,4 @@
     </div>
     @endif
 </div>
+

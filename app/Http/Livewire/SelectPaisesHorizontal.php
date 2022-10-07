@@ -7,16 +7,14 @@ use App\Models\Pais;
 use App\Models\Region;
 use App\Models\Subregion;
 
-
-
-class SelectPaises extends Component
+class SelectPaisesHorizontal extends Component
 {
     public $paisSeleccionado = null, $regionSeleccionada = null, $subRegionSeleccionada = null;
     public $regiones = null, $subregiones = null;
     
     public function render()
     {
-        return view('livewire.select-paises',['paises' => Pais::all()]);
+        return view('livewire.select-paises-horizontal',['paises' => Pais::all()]);
     }
 
     public function updatedpaisSeleccionado($pais_id){
