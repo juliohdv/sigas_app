@@ -12,7 +12,7 @@
                         <div class="card-body">
                             <a class="btn btn-warning" href="{{route('usuarios.create')}}">Nuevo</a>
                             <table class="table table-striped mt-2">
-                                <thead style="background-color: #6777ef">
+                                <thead style="background-color: #004346">
                                     <th style="display: none">ID</th>
                                     <th style="color: #fff">Nombre</th>
                                     <th style="color: #fff">E-Mail</th>
