@@ -41,6 +41,7 @@ class CuentaController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**

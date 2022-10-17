@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Solicitud;
+use App\Models\Conyuge;
+use App\Models\EstadoCivil;
+use App\Models\TipoReferencia;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class SolicitudController extends Controller
 {
@@ -14,7 +21,9 @@ class SolicitudController extends Controller
     public function index()
     {
         //
-        return view('solicitudes.index');
+        $estadosCiviles = EstadoCivil::get()->all();
+        $tipoReferencias = TipoReferencia::get()->all();
+        return view('solicitudes.index',compact('estadosCiviles','tipoReferencias'));
     }
 
     /**
@@ -36,6 +45,49 @@ class SolicitudController extends Controller
     public function store(Request $request)
     {
         //
+        request()->validate([
+            'nombres' => 'required',
+            'primerApellido' => 'required',
+            'segundoApellido' => 'required',
+            'apellidoCasada' => '',
+            'genero' => 'required',
+            'fechaNacimiento' => 'required',
+            'nacionalidad' => 'required',
+            'email1' => 'required',
+            'telefonoCasa' => 'required',
+            'telefonoTrabajo' => 'required',
+            'celular1' => 'required',
+            'subregiones_id' => 'required',
+            'estado_civil_id' => 'required',
+            'estado_solicitud_id' => 'required'
+
+        ]);
+        $conyuge = Conyuge::create([
+            'nombre' => $request->input('conyuge_nombre'),
+            'direccion' => $request->input('conyuge_direccion'),
+            'telefono' => $request->input('conyuge_telefono')
+        ])->save();
+
+        Solicitud::create([
+            'nombres' => $request->input('nombres'),
+            'primerApellido' => $request->input('primerApellido'),
+            'segundoApellido' => $request->input('segundoApellido'),
+            'apellidoCasada' => $request->input('apellidoCasada'),
+            'genero' => $request->input('genero'),
+            'fechaNacimiento' => $request->input('fechaNacimiento'),
+            'nacionalidad' => $request->input('nacionalidad'),
+            'email1' => $request->input('email1'),
+            'email2' => $request->input('email2'),
+            'telefonoCasa' => $request->input('telefonoCasa'),
+            'telefonoTrabajo' => $request->input('telefonoTrabajo'),
+            'celular1' => $request->input('celular1'),
+            'celular2' => $request->input('celular2'),
+            'subregiones_id' => $request->input('subregiones_id'),
+            'estado_civil_id' => $request->input('estado_civil_id'),
+            'estado_solicitud_id' => $request->input('estado_solicitud_id'),
+            'conyuge_id'=>Conyuge::latest()->first()->id,
+        ]);
+        return redirect()->route('solicitudes.index');
     }
 
     /**

@@ -6,8 +6,19 @@
             <h3 class="page__heading"><h3>Solicitud de registro de asociado</h3>
         </div>
         <div class="section-body">
+            @if($errors->any())
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <strong>!Revise los campos!</strong>
+                                        @foreach($errors->all() as $error)
+                                            <span class="badge badge-danger">{{$error}}</span>
+                                        @endforeach
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                            @endif
             <div class="row">
-                
+                {!! Form::open(array('route'=>'solicitudes.store','method'=>'POST')) !!}
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -15,20 +26,20 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="">Nombres</label>
-                                        <input type="text" class="form-control">
+                                        <label for="nombres">Nombres</label>
+                                        <input type="text" id="nombres" name="nombres" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Primer apellido:</label>
-                                        <input type="text" class="form-control">
+                                        <label for="primerApellido">Primer apellido:</label>
+                                        <input type="text" id="primerApellido" name="primerApellido" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Segundo apellido:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="segundoApellido" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Apellido de casada:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="apellidoCasada" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -36,20 +47,20 @@
                                         <label for="">Género:</label>
                                         <br>
                                         <br>
-                                        <input type="radio">
+                                        <input type="radio" name="genero" value="M">
                                         <label for="Masculino">Masculino</label>
-                                        <input type="radio">
+                                        <input type="radio" name="genero" value="F">
                                         <label for="Masculino">Femenino</label>
-                                        <input type="radio">
+                                        <input type="radio" name=genero value="O">
                                         <label for="Masculino">Otro</label>
                                     </div>
                                     <div class="form-group">
                                         <label for="fechaNacimiento">Fecha de Nacimiento:</label>
-                                        <input type="date" class="form-control">
+                                        <input type="date" name="fechaNacimiento" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Nacionalidad:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="nacionalidad" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         @livewire('select-paises')
@@ -135,30 +146,30 @@
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <label for="tipoDocumento">Estado civil:</label>
-                                        <select name="" id="" class="form-control">
+                                        <label for="estado_civil_id">Estado civil:</label>
+                                        <select name="estado_civil_id" id="estado_civil_id" class="form-control">
                                             <option value="">Seleccione...</option>
-                                            <option value="">Casado/a</option>
-                                            <option value="">Soltero/a</option>
-                                            <option value="">Viudo/a</option>
+                                            @foreach($estadosCiviles as $estado)
+                                                <option value={{$estado->id}}>{{$estado->estadoCivil}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <label for="">Nombre completo:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" id="conyuge_nombre" name="conyuge_nombre" class="form-control">
                                     </div>
                                 </div>
                                 
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">Dirección de trabajo:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" id="conyuge_direccion" name="conyuge_direccion" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Teléfono:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" id="conyuge_nombre" name="conyuge_telefono" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -171,27 +182,27 @@
                             <label for="">Datos de Contacto:</label>
                             <div class="form-group">
                                 <label for="">e-mail:</label>
-                                <input type="email" name="" id="" class="form-control">
+                                <input type="email" name="email1" id="email1" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">e-mail alternativo:</label>
-                                <input type="email" name="" id="" class="form-control">
+                                <input type="email" name="email2" id="email2" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Teléfono fijo:</label>
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" name="telefonoCasa" id="telefonoCasa" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Celular 1:</label>
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" name="celular1" id="celular1" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Celular 2:</label>
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" name="celular2" id="celular2" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="">Teléfono de trabajo:</label>
-                                <input type="text" name="" id="" class="form-control">
+                                <input type="text" name="telefonoTrabajo" id="telefonoTrabajo" class="form-control">
                             </div>
                         </div>  
                     </div>
@@ -263,95 +274,72 @@
                     <div class="card">
                         <div class="card-body">
                             <label for="">Referencias:</label>
-                            <div class="col-lg-12">
-                                <label>Personales:</label>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">1. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
+                            <div>
+                                <div class="col-lg-12">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="">Nombre:</label>
+                                                <input wire:model="referencias.nombre" type="text" class="form-control">
+                                            </div>
                                         </div>
-    
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Teléfono:</label>
-                                            <input type="text" class="form-control"></input>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <label for="">Teléfono:</label>
+                                                <input wire:model="referencias.telefono" type="text" class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">e-mail:</label>
-                                            <input type="email" class="form-control"></input>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label for="">e-mail:</label>
+                                                <input wire:model="referencias.email" type="email" class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">2. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
-                                        </div>
-    
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Teléfono:</label>
-                                            <input type="text" class="form-control"></input>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">e-mail:</label>
-                                            <input type="email" class="form-control"></input>
-                                        </div>
-                                    </div>
-                                </div>
-                                <label>Familiares:</label>
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">1. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
-                                        </div>
-    
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Teléfono:</label>
-                                            <input type="text" class="form-control"></input>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">e-mail:</label>
-                                            <input type="email" class="form-control"></input>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                            <label for="tipo_referencia_id">Tipo:</label>
+                                            <select wire:model="referencias.tipo_referencia_id" name="tipo_referencia_id" id="tipo_referencia_id" class="form-control">
+                                                <option value="">Seleccione...</option>
+                                                @foreach($tipoReferencias as $tipoReferencia)
+                                                    <option value={{$tipoReferencia->id}}>{{$tipoReferencia->tipoReferencia}}</option>
+                                                @endforeach
+                                            </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">2. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
-                                        </div>
-    
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label for="">Teléfono:</label>
-                                            <input type="text" class="form-control"></input>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="">e-mail:</label>
-                                            <input type="email" class="form-control"></input>
-                                        </div>
-                                    </div>
+                                <script type="text/javascript">
+                                $(document).ready(function(){
+                                    var i = 0;
+                                    $('#btnOtro').click(function(){  
+                                        alert("hola")
+                                        i++;  
+                                        $('#otro').append(
+                                            '<div class="col-lg-4">'+
+                                            '<div class="form-group">'+
+                                                '<label for="">Nombre:</label><input type="text" class="form-control">'+
+                                            '</div></div>'+
+                                        '<div class="col-lg-2"><div class="form-group">'+
+                                                '<label for="">Teléfono:</label><input wire:model="referencias.telefono" type="text" class="form-control">'+
+                                            '</div></div>'+
+                                        '<div class="col-lg-4"><div class="form-group">'+
+                                                '<label for="">e-mail:</label><input wire:model="referencias.email" type="email" class="form-control">'+
+                                            '</div></div>'+
+                                        '<div class="col-lg-2"><div class="form-group">'+
+                                            '<label for="tipo_referencia_id">Tipo:</label><select  name="tipo_referencia_id" id="tipo_referencia_id" class="form-control">'+
+                                                '<option value="">Seleccione...</option>'+
+                                                '@foreach($tipoReferencias as $tipoReferencia)'+
+                                                '<option value={{$tipoReferencia->id}}>{{$tipoReferencia->tipoReferencia}}</option>'+
+                                                '@endforeach+</select>'+
+                                            '</div></div></div>'
+                                            );  
+                                    });  
+                                }
+                                </script>
+                                <div id="otro" class="col-lg-12">
                                 </div>
-                                
+                                <button  type="button" id="btnOtro" name="btnOtro" class="btn">Agregar otro...</button>
                             </div>
                         </div>  
                     </div>
@@ -363,26 +351,26 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">1. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -390,26 +378,26 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">2. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -417,30 +405,30 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">3. Nombre:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="text" class="form-control"></input>
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <input type="hidden" name="estado_solicitud_id" value="1">
                             </div>
                             <div class="col-lg-4">
                                 <button type="submit" class="btn btn-success">Enviar</button>
@@ -449,7 +437,7 @@
                         </div>  
                     </div>
                 </div>
-                
+                {!! Form::close() !!}
             </div>
         </div>
     </section>

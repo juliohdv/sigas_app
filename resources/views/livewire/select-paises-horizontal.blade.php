@@ -26,7 +26,7 @@
     @if(!is_null($subregiones))
     <div class="form-group col-lg-3">
     <label for="">Ciudad o Municipio:</label>
-        <select wire:model="subRegionSeleccionada" name="subRegiones" id="subRegiones" class="form-control">
+        <select wire:model="subRegionSeleccionada" name="subregiones_id" id="subregiones_id" class="form-control">
             <option>Seleccione una sub-región...</option>
             @foreach($subregiones as $subregion)
                 <option value={{$subregion->id}}>{{$subregion->name}}</option>
