@@ -31,4 +31,9 @@ class Solicitud extends Model
         'conyuge_telefono',
     ];
     protected $table = 'solicitud';
+
+    public function estado()
+    {
+        return $this->belongsTo(EstadoSolicitud::class, 'estado_solicitud_id');
+    }
 }

@@ -10,6 +10,7 @@ use App\Models\EstadoCivil;
 use App\Models\TipoReferencia;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class SolicitudController extends Controller
 {
@@ -21,9 +22,9 @@ class SolicitudController extends Controller
     public function index()
     {
         //
-        $estadosCiviles = EstadoCivil::get()->all();
-        $tipoReferencias = TipoReferencia::get()->all();
-        return view('solicitudes.index',compact('estadosCiviles','tipoReferencias'));
+        $mensaje = "";
+        $solicitudes = Solicitud::with('estado')->paginate(5);
+        return view('solicitudes.index',compact('solicitudes','mensaje'));
     }
 
     /**
@@ -34,6 +35,17 @@ class SolicitudController extends Controller
     public function create()
     {
         //
+        if(Solicitud::where('email1', Auth::user()->email)->count() >= 1)
+        {
+            $solicitudes = Solicitud::with('estado')->paginate(5);
+            $mensaje = "Usted ya tiene una solicitud en revisión.";
+            return view('solicitudes.index',compact('solicitudes','mensaje'));
+        }else{
+            
+            $tipoReferencias = TipoReferencia::get()->all();
+            $estadosCiviles = EstadoCivil::get()->all();
+            return view('solicitudes.create',compact('estadosCiviles','tipoReferencias'));
+        }
     }
 
     /**

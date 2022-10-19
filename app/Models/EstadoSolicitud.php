@@ -12,4 +12,9 @@ class EstadoSolicitud extends Model
         'estadoSolicitud',
     ];
     protected $table = 'estado_solicitud';
+
+    public function solicitudes()
+    {
+        return $this->hasMany(Solicitud::class, 'estado_solicitud_id');
+    }
 }
