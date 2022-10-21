@@ -81,24 +81,53 @@
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="">Barrio, Colonia, Residencial:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="barrioColoniaResidencial" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="">Calle, Pasaje:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="callePasaje" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="">#Casa, Departamento:</label>
-                                        <input type="text" class="form-control">
+                                        <input type="text" name="casaDepartamento" class="form-control">
                                     </div>
                                 </div>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKIDD2l5v0UdeIsFakOXR7apoyk_-tuog&callback=initMap&libraries=marker" defer></script>
+                                    <script type="text/javascript">
+                                        
+                                            function initMap() {
+                                            const map = new google.maps.Map(document.getElementById("map"), {
+                                                center: { lat: 13.698241793333022, lng: -89.19260678719792 },
+                                                zoom: 12,
+                                            });
+                                            const infoWindow = new google.maps.InfoWindow();
+                                            var marcador = new google.maps.Marker({draggable:true, clickable:true,});
+                                            const inputPosicion = document.getElementById("inputPosicion");
+                                            marcador.setPosition(new google.maps.LatLng(13.698241793333022,-89.19260678719792));
+                                            marcador.setMap(map);
+                                            marcador.setTitle("Su ubicación.")
+                                            marcador.addListener("drag",() =>{
+                                                var posicion = marcador.position;
+                                                infoWindow.close();
+                                                infoWindow.setContent(`Pin ubicado en: ${posicion}`);
+                                                infoWindow.open({anchor:marcador, map});
+                                                inputPosicion.setAttribute("value",posicion);
+                                                 });
+                                            }
+                                             window.initMap = initMap;
+                                    </script>
                                 <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <label for="">Seleccione la ubicación:</label>
+                                        <label for="">Arrastre el marcador para seleccionar la ubicación aproximada:</label>
+                                        <div id="map" style="height: 400px; width: 100%"></div>
+                                        <div class="form-group">
+                                            <label for="">Posición:</label>
+                                            <input type="text" class="form-control" disabled for="inputPosicion" name="inputPosicion" id="inputPosicion" value="">
+                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>

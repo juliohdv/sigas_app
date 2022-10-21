@@ -36,4 +36,8 @@ class Solicitud extends Model
     {
         return $this->belongsTo(EstadoSolicitud::class, 'estado_solicitud_id');
     }
+    public function conyuge()
+    {
+        return $this->hasOne(Conyuge::class,'conyuge_id');
+    }
 }

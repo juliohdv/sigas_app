@@ -44,7 +44,8 @@
                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <label for="logo_url">Logo URL </label>
-                                        {!! Form::text('logo_url', null, array('class'=>'form-control')) !!}    
+                                        {{-- {!! Form::text('logo_url', null, array('class'=>'form-control')) !!}     --}}
+                                        {!! Form::file('logo_url', []) !!}
                                     </div> 
                                </div> 
                                     <div class="col-xs-12 col-sm-12 col-md-12">

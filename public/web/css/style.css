@@ -4134,3 +4134,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
         font-size: 9px;
     }
 }
+.degradado{
+    background: rgb(117,221,221);
+    background: linear-gradient(309deg, rgba(117,221,221,1) 0%, rgba(80,137,145,1) 10%, rgba(23,42,58,1) 30%, rgba(0,67,70,1) 71%, rgba(9,188,138,1) 100%); 
+}

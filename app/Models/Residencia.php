@@ -12,8 +12,7 @@ class Residencia extends Model
         'barrioColoniaResidencial',
         'callePasaje',
         'casaDepartamento',
-        'latitudMapa',
-        'longitudMapa',
+        'ubicacionMapa',
         'subregion_id',
         'solicitud_id',
     ];

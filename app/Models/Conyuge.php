@@ -14,4 +14,9 @@ class Conyuge extends Model
         'telefono',
     ];
     protected $table = 'conyuge';
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class,'conyuge_id');
+    }
 }

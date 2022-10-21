@@ -99,6 +99,7 @@ class SolicitudController extends Controller
             'estado_solicitud_id' => $request->input('estado_solicitud_id'),
             'conyuge_id'=>Conyuge::latest()->first()->id,
         ]);
+        
         return redirect()->route('solicitudes.index');
     }
 
