@@ -96,7 +96,7 @@
                                         <input type="text" name="casaDepartamento" class="form-control">
                                     </div>
                                 </div>
-                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKIDD2l5v0UdeIsFakOXR7apoyk_-tuog&callback=initMap&libraries=marker" defer></script>
+                                <script src="https://maps.googleapis.com/maps/api/js?key={{ config('app.gmaps_api_key') }}'&callback=initMap&libraries=marker" defer></script>
                                     <script type="text/javascript">
                                         
                                             function initMap() {

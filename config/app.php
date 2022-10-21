@@ -120,7 +120,7 @@ return [
     */
 
     'key' => env('APP_KEY'),
-
+    'gmaps_api_key' => env('GMAPS_API_KEY'),
     'cipher' => 'AES-256-CBC',
 
     /*
