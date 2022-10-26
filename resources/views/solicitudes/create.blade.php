@@ -151,7 +151,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="">NIT:</label>
-                                        <input type="text" name="nit" id="nit" class="form-control">
+                                        <input type="text" name="nit" id="nit" class="form-control" pattern="^[0-9]{4}-[0-9]{6}-[0-9]{3}-[0-9]$">
                                     </div>
                                     <div class="form-group">
                                         <label for="">ISSS:</label>
@@ -161,7 +161,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="">Número de documento:</label>
-                                        <input type="text" name="numero_documento" id="numero_documento" class="form-control">
+                                        <input type="text" name="numero_documento" id="numero_documento" class="form-control" pattern="^[0-9]{8}-[0-9]$">
                                     </div>
                                     <div class="form-group">
                                         <label for="">NUP:</label>
@@ -199,7 +199,7 @@
                                         <input type="text" id="conyuge_direccion" name="conyuge_direccion" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Teléfono:</label>
+                                        <label for="conyuge_telefono">Teléfono:</label>
                                         <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="conyuge_telefono" name="conyuge_telefono" class="form-control">
                                     </div>
                                 </div>
@@ -213,11 +213,11 @@
                             <label for="">Datos de Contacto:</label>
                             <div class="form-group">
                                 <label for="">e-mail:</label>
-                                <input type="email" name="email1" id="email1" class="form-control">
+                                <input type="email" name="email1" id="email1" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                             </div>
                             <div class="form-group">
                                 <label for="">e-mail alternativo:</label>
-                                <input type="email" name="email2" id="email2" class="form-control">
+                                <input type="email" name="email2" id="email2" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                             </div>
                             <div class="form-group">
                                 <label for="">Teléfono fijo:</label>
@@ -244,17 +244,18 @@
                             <label for="">Actividad Económica:</label>
                             <div class="form-group">
                                 <label for="">Tipo:</label>
-                                <input type="checkbox" name="" id="">
+                                <input type="checkbox" name="empleado" id="empleado">
                                 <label for="">Empleado</label>
-                                <input type="checkbox" name="" id="">
+                                <input type="checkbox" name="empresario" id="empresario">
                                 <label for="">Empresario</label>
                             </div>
                             <div class="row">
                                 <div class="form-group col-lg-4">
                                     <label for="">Sector:</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Público</option>
-                                        <option value="">Privado</option>
+                                    <select name="sector_id" id="sector_id" class="form-control">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">Público</option>
+                                        <option value="2">Privado</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-4">
@@ -308,7 +309,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input wire:model="referencias.nombre" type="text" class="form-control">
+                                                <input type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -320,7 +321,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input wire:model="referencias.email" type="email" class="form-control">
+                                                <input  type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -353,7 +354,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input wire:model="referencias.email" type="email" class="form-control">
+                                                <input type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -374,7 +375,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input wire:model="referencias.nombre" type="text" class="form-control">
+                                                <input  type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -386,7 +387,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input wire:model="referencias.email" type="email" class="form-control">
+                                                <input  type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -407,7 +408,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input wire:model="referencias.nombre" type="text" class="form-control">
+                                                <input type="text" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -419,7 +420,7 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input wire:model="referencias.email" type="email" class="form-control">
+                                                <input type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
@@ -446,26 +447,25 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">1. Nombre:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioNombre1">
                                         </div>
-    
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioEdad1">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioParentesco1">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="number" min="0" max="100" class="form-control" name="procentaje1" id="porcentaje1" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
                                     </div>
                                 </div>
@@ -473,26 +473,26 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">2. Nombre:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioNombre2">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioEdad2">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioParentesco2">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="number" min="0" max="100" class="form-control" id="porcentaje2" name="porcentaje2" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
                                     </div>
                                 </div>
@@ -500,27 +500,28 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">3. Nombre:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioNombre3">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioEdad3">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="text" class="form-control" id="beneficiarioParentesco3">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="text" class="form-control">
+                                            <input type="number" min="0" max="100" class="form-control" id="porcentaje3" name="porcentaje3" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
+                                        <label for="">Total:</label><input type="text" class="form-control" readonly placeholder="0%" name="totalP" id="totalP">
                                     </div>
                                 </div>
                                 <input type="hidden" name="estado_solicitud_id" value="1">

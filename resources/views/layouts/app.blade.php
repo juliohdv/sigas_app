@@ -82,8 +82,62 @@
             }
         });
 </script>
-{{-- SCRIPT PARA INHABILITAR EL CAMPO DE APELLIDO DE CASADA SI SE SELECCIONA GENERO MASCULINO U OTRO --}}
 
+<script type="text/javascript">
+    var tot=0;
+    $('#porcentaje3, #porcentaje2, #porcentaje1').on('blur change keyup', function(){
+        var p1 = parseInt($('#porcentaje1').val());
+        var p2 = parseInt($('#porcentaje2').val());
+        var p3 = parseInt($('#porcentaje3').val());
+        tot=p1+p2+p3;
+        $('#totalP').attr('value',tot);
+        if(p1 == 100){
+            tot = p1;            
+            $('#beneficiarioNombre2').prop('readonly',true);
+            $('#beneficiarioEdad2').prop('readonly',true);
+            $('#beneficiarioParentesco2').prop('readonly',true);
+            $('#porcentaje2').prop('readonly',true)
+            $('#beneficiarioNombre3').prop('readonly',true);
+            $('#beneficiarioEdad3').prop('readonly',true);
+            $('#beneficiarioParentesco3').prop('readonly',true);
+            $('#porcentaje3').prop('readonly',true)
+            $('#totalP').attr('value',tot);
+        }else if((p1+p2) == 100){
+            tot = p1+p2;
+            $('#beneficiarioNombre3').prop('readonly',true);
+            $('#beneficiarioEdad3').prop('readonly',true);
+            $('#beneficiarioParentesco3').prop('readonly',true);
+            $('#porcentaje3').prop('readonly',true)
+            $('#totalP').attr('value',tot);
+        }else if(((p1+p2+p3) == 100) || ((p1+p2)<100)){
+            $('#beneficiarioNombre2').prop('readonly',false);
+            $('#beneficiarioEdad2').prop('readonly',false);
+            $('#beneficiarioParentesco2').prop('readonly',false);
+            $('#porcentaje2').prop('readonly',false)
+            $('#beneficiarioNombre3').prop('readonly',false);
+            $('#beneficiarioEdad3').prop('readonly',false);
+            $('#beneficiarioParentesco3').prop('readonly',false);
+            $('#porcentaje3').prop('readonly',false)
+            tot = p1+p2+p3;
+            $('#totalP').attr('value',tot);
+        }
+    });    
+</script>
+    
+{{-- SCRIPT PARA INHABILITAR OPCION DE SECTOR PUBLICO SI SE SELECCIONA SOLO EMPRESARIO --}}
+<script type="text/javascript">
+    $('input:checkbox').change(
+        function(){
+            if($('#empresario').is(':checked') && $('#empleado').is(':checked')) {                    
+                    $('#sector_id option[value=1]').prop('disabled',false);
+                }
+                else if($('#empresario').is(':checked') && !$('#empleado').is(':checked')) {
+                    $('#sector_id option[value=1]').prop('disabled',true);
+                }else if(!$('#empresario').is(':checked') && !$('#empleado').is(':checked')){
+                    $('#sector_id option[value=1]').prop('disabled',false);
+                }
+        });
+</script>
 {{-- SCRIPT PARA INHABILITAR LOS CAMPOS DE ESTAD CIVIL SI SE SELECCIONA SOLTERO O VIUDO --}}
 <script type="text/javascript">
     $('#estado_civil_id').on('change',
