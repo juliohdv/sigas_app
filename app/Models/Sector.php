@@ -12,4 +12,9 @@ class Sector extends Model
         'sector',
     ];
     protected $table = 'sector';
+
+    public function actividadEconomica()
+    {
+        return $this->belongsTo(ActividadEconomica::class);
+    }
 }

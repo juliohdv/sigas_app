@@ -12,4 +12,17 @@ class Subregion extends Model
 
     protected $table = 'subregiones';
 
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class, 'estado_solicitud_id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class,'regiones_id','id');
+    }
+    public function residencia()
+    {
+        return $this->belongsTo(Residencia::class,'subregiones_id','id');
+    }
 }

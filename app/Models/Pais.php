@@ -18,4 +18,9 @@ class Pais extends Model
     ];
     
     protected $table = 'paises';
+
+    public function regiones()
+    {
+        return $this->hasMany(Region::class,'paises_id','id');
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\Expr\FuncCall;
 
 class Residencia extends Model
 {
@@ -12,9 +13,19 @@ class Residencia extends Model
         'barrioColoniaResidencial',
         'callePasaje',
         'casaDepartamento',
-        'ubicacionMapa',
+        'ubicacionmapa',
         'subregion_id',
         'solicitud_id',
     ];
     protected $table = 'residencia';
+
+    public function subregion()
+    {
+        return $this->belongsTo(Subregion::class,'subregion_id','id');
+    }
+    public function solicitudes()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
+
 }

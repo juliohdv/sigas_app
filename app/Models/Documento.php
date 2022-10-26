@@ -14,4 +14,13 @@ class Documento extends Model
         'solicitud_id',
     ];
     protected $table = 'documento';
+
+    public function tipoDocumento()
+    {
+        return $this->belongsTo(TipoDocumento::class);
+    }
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class,'solicitud_id','id');
+    }
 }

@@ -19,4 +19,17 @@ class ActividadEconomica extends Model
         'solicitud_id',
     ];
     protected $table = 'actividad_economica';
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
+    public function sector()
+    {
+        return $this->hasOne(Sector::class);
+    }
+    public function profesion()
+    {
+        return $this->hasOne(Profesion::class);
+    }
 }

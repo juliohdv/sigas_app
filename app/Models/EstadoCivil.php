@@ -12,4 +12,9 @@ class EstadoCivil extends Model
         'estadoCivil',
     ];
     protected $table = 'estado_civil';
+
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class, 'estado_solicitud_id');
+    }
 }

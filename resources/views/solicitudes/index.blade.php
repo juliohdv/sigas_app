@@ -32,10 +32,12 @@
                                             <td>{{$solicitud->nombres}}</td>
                                             <td>{{$solicitud->primerApellido}}</td>
                                             <td>{{$solicitud->segundoApellido}}</td>
-                                            <td>{{$solicitud->estado->estadoSolicitud}}</td>
+                                            <td>{{$solicitud->estadoSolicitud->estadoSolicitud}}</td>
                                             <td>{{$solicitud->created_at}}</td>
                                             <td>
-         
+                                                <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>2]) }}" class="btn btn-primary">Aprobar</a>
+                                                <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>3]) }}" class="btn btn-primary">Denegar</a>
+                                                <a href="{{ route('verSolicitud', ['idSolicitud'=>$solicitud->id]) }}" class="btn btn-primary">Ver</a>
                                             </td>
                                         </tr>
                                     @endforeach

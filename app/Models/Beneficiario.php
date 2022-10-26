@@ -16,4 +16,9 @@ class Beneficiario extends Model
         'solicitud_id',
     ];
     protected $table = 'beneficiario';
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
 }

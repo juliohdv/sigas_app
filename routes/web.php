@@ -37,5 +37,7 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('cooperativas', CooperativaController::class);
     Route::resource('paises', PaisController::class);
     Route::resource('solicitudes', SolicitudController::class);
+    Route::get('editarEstado/idSolicitud/{idSolicitud}/nuevoEstado/{nuevoEstado}', 'App\Http\Controllers\SolicitudController@editarEstado')->name('editarEstado');
+    Route::get('verSolicitud/idSolicitud/{idSolicitud}', 'App\Http\Controllers\SolicitudController@verSolicitud')->name('verSolicitud');
     
 });

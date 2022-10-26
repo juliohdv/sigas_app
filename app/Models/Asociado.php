@@ -15,4 +15,9 @@ class Asociado extends Model
         
     ];
     protected $table = 'asociado';
+
+    public function solicitud()
+    {
+        return $this->hasMany(Solicitud::class);
+    }
 }

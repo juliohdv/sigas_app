@@ -15,4 +15,9 @@ class Cuenta extends Model
         'tipo_cuenta_id',
     ];
     protected $table = 'cuenta';
+
+    public function tipoCuenta()
+    {
+        return $this->hasOne(TipoCuenta::class);
+    }
 }

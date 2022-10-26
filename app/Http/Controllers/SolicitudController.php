@@ -7,10 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Solicitud;
 use App\Models\Conyuge;
 use App\Models\EstadoCivil;
+use App\Models\Residencia;
+use App\Models\Documento;
+use App\Models\Pais;
 use App\Models\TipoReferencia;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Auth;
+use League\CommonMark\Node\Block\Document;
+use PhpParser\Comment\Doc;
 
 class SolicitudController extends Controller
 {
@@ -23,7 +27,7 @@ class SolicitudController extends Controller
     {
         //
         $mensaje = "";
-        $solicitudes = Solicitud::with('estado')->paginate(5);
+        $solicitudes = Solicitud::with('estadoSolicitud')->orderBy('id','asc')->paginate(10);
         return view('solicitudes.index',compact('solicitudes','mensaje'));
     }
 
@@ -44,7 +48,8 @@ class SolicitudController extends Controller
             
             $tipoReferencias = TipoReferencia::get()->all();
             $estadosCiviles = EstadoCivil::get()->all();
-            return view('solicitudes.create',compact('estadosCiviles','tipoReferencias'));
+            $nacionalidades = Pais::all()->sortBy('nacionalidad');
+            return view('solicitudes.create',compact('estadosCiviles','tipoReferencias','nacionalidades'));
         }
     }
 
@@ -79,7 +84,7 @@ class SolicitudController extends Controller
             'direccion' => $request->input('conyuge_direccion'),
             'telefono' => $request->input('conyuge_telefono')
         ])->save();
-
+        
         Solicitud::create([
             'nombres' => $request->input('nombres'),
             'primerApellido' => $request->input('primerApellido'),
@@ -99,6 +104,20 @@ class SolicitudController extends Controller
             'estado_solicitud_id' => $request->input('estado_solicitud_id'),
             'conyuge_id'=>Conyuge::latest()->first()->id,
         ]);
+        Residencia::create([
+            'barrioColoniaResidencial' => $request->input('barrioColoniaResidencial'),
+            'callePasaje' => $request->input('callePasaje'),
+            'casaDepartamento' => $request->input('casaDepartamento'),
+            'ubicacionmapa' => $request->input('ubicacionmapa'),
+            'subregion_id' => $request->input('residencia_subregion_id'),
+            'solicitud_id' => Solicitud::latest()->first()->id,
+        ]);
+        Documento::create([
+            'numeroDocumento' => $request->input('numero_documento'),
+            'tipo_documento_id' => $request->input('tipo_documento_id'),
+            'solicitud_id' => Solicitud::latest()->first()->id,
+        ]);
+
         
         return redirect()->route('solicitudes.index');
     }
@@ -124,6 +143,36 @@ class SolicitudController extends Controller
     {
         //
     }
+
+    /**
+     * Edita el estado a Aprobado.
+     *
+     * @param  int  $idSolicitud
+     * @return \Illuminate\Http\Response
+     */
+    public function editarEstado($idSolicitud, $nuevoEstado)
+    {
+        $solicitud = Solicitud::find($idSolicitud);
+        $solicitud->estado_solicitud_id = $nuevoEstado;
+        $solicitud->save();
+        return redirect()->route('solicitudes.index');
+    }
+
+
+    /**
+     * Ver solicitud.
+     *
+     * @param  int  $idSolicitud
+     * @return \Illuminate\Http\Response
+     */
+    public function verSolicitud($idSolicitud)
+    {
+        $solicitud = Solicitud::find($idSolicitud);
+        $documento = Documento::with('tipoDocumento')->where('solicitud_id','=',$idSolicitud)->first();
+        $residencia = Residencia::with('subregion')->where('solicitud_id','=',$idSolicitud)->first();
+        return view('solicitudes.ver',compact('solicitud','documento','residencia'));
+    }    
+
 
     /**
      * Update the specified resource in storage.

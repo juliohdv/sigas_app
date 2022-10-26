@@ -1,7 +1,7 @@
 
     <div class="form-row">
     <div class="form-group col-lg-3">
-        <label for="">País de nacimiento:</label>
+        <label for="">País de residencia:</label>
         <select wire:model="paisSeleccionado" name="paises" id="paises" class="form-control">
             <option>Seleccione un país...</option>
             @foreach($paises as $pais)

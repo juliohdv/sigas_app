@@ -12,4 +12,9 @@ class TipoCuenta extends Model
         'tipoCuenta',
     ];
     protected $table = 'tipo_cuenta';
+
+    public function cuenta()
+    {
+        return $this->belongsTo(Cuenta::class);
+    }
 }

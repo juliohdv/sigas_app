@@ -17,4 +17,14 @@ class Referencia extends Model
         'solicitud_id',
     ];
     protected $table = 'referencia';
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Solicitud::class);
+    }
+
+    public function tipoReferencia()
+    {
+        return $this->hasOne(TipoReferencia::class);
+    }
 }

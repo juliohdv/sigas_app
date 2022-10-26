@@ -12,4 +12,9 @@ class TipoReferencia extends Model
         'tipoReferencia',
     ];
     protected $table = 'tipo_referencia';
+
+    public function solicitud()
+    {
+        return $this->belongsTo(Referencia::class);
+    }
 }

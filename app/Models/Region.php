@@ -13,4 +13,14 @@ class Region extends Model
         'state_code'
     ];
     protected $table = 'regiones';
+
+    public function subregiones()
+    {
+        return $this->belongsTo(Subregion::class,'regiones_id','id');
+    }
+
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class,'paises_id','id');
+    }
 }

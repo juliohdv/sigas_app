@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use League\CommonMark\Node\Block\Document;
 
 class Solicitud extends Model
 {
@@ -32,12 +33,44 @@ class Solicitud extends Model
     ];
     protected $table = 'solicitud';
 
-    public function estado()
+    public function estadoCivil()
     {
-        return $this->belongsTo(EstadoSolicitud::class, 'estado_solicitud_id');
+        return $this->hasOne(EstadoCivil::class);
+    }
+    public function estadoSolicitud()
+    {
+        return $this->belongsTo(EstadoSolicitud::class,'estado_solicitud_id','id');
     }
     public function conyuge()
     {
-        return $this->hasOne(Conyuge::class,'conyuge_id');
+        return $this->hasOne(Conyuge::class);
+    }
+    public function subRegion()
+    {
+        return $this->hasOne(Subregion::class);
+    }
+    public function residencia()
+    {
+        return $this->belongsTo(Residencia::class);
+    }
+    public function documento()
+    {
+        return $this->belongsTo(Document::class,'solicitud_id','id');
+    }
+    public function referencias()
+    {
+        return $this->hasMany(Referencia::class);
+    }
+    public function beneficiarios()
+    {
+        return $this->hasMany(Beneficiario::class);
+    }
+    public function asociado()
+    {
+        return $this->belongsTo(Asociado::class);
+    }
+    public function actividadEconomica()
+    {
+        return $this->hasMany(ActividadEconomica::class);
     }
 }

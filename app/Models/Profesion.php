@@ -12,4 +12,9 @@ class Profesion extends Model
         'profesion',
     ];
     protected $table = 'profesion';
+
+    public function actividadEconomica()
+    {
+        return $this->belongsTo(ActividadEconomica::class);
+    }
 }
