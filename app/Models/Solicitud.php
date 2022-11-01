@@ -35,7 +35,7 @@ class Solicitud extends Model
 
     public function estadoCivil()
     {
-        return $this->hasOne(EstadoCivil::class);
+        return $this->belongsTo(EstadoCivil::class,'estado_civil_id','id');
     }
     public function estadoSolicitud()
     {
@@ -43,11 +43,11 @@ class Solicitud extends Model
     }
     public function conyuge()
     {
-        return $this->hasOne(Conyuge::class);
+        return $this->belongsTo(Conyuge::class , 'conyuge_id','id');
     }
     public function subRegion()
     {
-        return $this->hasOne(Subregion::class);
+        return $this->belongsTo(Subregion::class, 'subregiones_id','id');
     }
     public function residencia()
     {
@@ -63,7 +63,7 @@ class Solicitud extends Model
     }
     public function beneficiarios()
     {
-        return $this->hasMany(Beneficiario::class);
+        return $this->belongsTo(Beneficiario::class,'solicitud_id','id');
     }
     public function asociado()
     {
@@ -71,6 +71,6 @@ class Solicitud extends Model
     }
     public function actividadEconomica()
     {
-        return $this->hasMany(ActividadEconomica::class);
+        return $this->belongsTo(ActividadEconomica::class,'solicitud_id','id');
     }
 }

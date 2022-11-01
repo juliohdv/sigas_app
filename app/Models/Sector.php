@@ -15,6 +15,6 @@ class Sector extends Model
 
     public function actividadEconomica()
     {
-        return $this->belongsTo(ActividadEconomica::class);
+        return $this->belongsTo(ActividadEconomica::class,'sector_id','id');
     }
 }

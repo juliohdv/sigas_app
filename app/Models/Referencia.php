@@ -25,6 +25,6 @@ class Referencia extends Model
 
     public function tipoReferencia()
     {
-        return $this->hasOne(TipoReferencia::class);
+        return $this->belongsTo(TipoReferencia::class,'tipo_referencia_id','id');
     }
 }

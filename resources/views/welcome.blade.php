@@ -25,19 +25,17 @@
             @if (Route::has('login'))
                 <div class=" fixed top-0  px-6 py-4 sm:block">
                     <div class="card">
-                        <div class="card-header">
-                        </div>
+                        <div class="card-header"></div>
                         <div class="card-body">
                             @auth
                             <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Inicio</a>
-                        @else
+                            @else
                                 <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline door-open">Iniciar Sesión</a>
-    
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Registrarse</a>
-                            @endif
-                        @endauth
-                        </div>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Registrarse</a>
+                                    @endif
+                                        @endauth
+                                        </div>
                     </div>
                 </div>
             @endif

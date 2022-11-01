@@ -7,16 +7,16 @@
         </div>
         <div class="section-body">
             @if($errors->any())
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    <strong>!Revise los campos!</strong>
-                                        @foreach($errors->all() as $error)
-                                            <span class="badge badge-danger">{{$error}}</span>
-                                        @endforeach
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                </div>
-                            @endif
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>!Revise los campos!</strong>
+                        @foreach($errors->all() as $error)
+                            <span class="badge badge-danger">{{$error}}</span>
+                        @endforeach
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            @endif
             <div class="row">
                 {!! Form::open(array('route'=>'solicitudes.store','method'=>'POST')) !!}
                 <div class="col-lg-12">
@@ -200,7 +200,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="conyuge_telefono">Teléfono:</label>
-                                        <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="conyuge_telefono" name="conyuge_telefono" class="form-control">
+                                        <input type="tel" id="conyuge_telefono" name="conyuge_telefono" class="form-control">
+                                        <small id="stelConyuge"></small>
+                                        <input type="hidden" name="telInternacionalConyuge" id="telInternacionalConyuge">
                                     </div>
                                 </div>
                             </div>
@@ -220,20 +222,28 @@
                                 <input type="email" name="email2" id="email2" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
                             </div>
                             <div class="form-group">
-                                <label for="">Teléfono fijo:</label>
-                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="telefonoCasa" id="telefonoCasa" class="form-control">
+                                <label for="telefonoCasa">Teléfono fijo:</label>
+                                <input type="tel"  name="telefonoCasa" id="telefonoCasa" class="form-control">
+                                <small id="stelCasa"></small>
+                                <input type="hidden" name="telInternacionalCasa" id="telInternacionalCasa">
                             </div>
                             <div class="form-group">
-                                <label for="">Celular 1:</label>
-                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="celular1" id="celular1" class="form-control">
+                                <label for="celular1">Celular 1:</label>
+                                <input type="tel"  name="celular1" id="celular1" class="form-control">
+                                <small id="stelCelular1"></small>
+                                <input type="hidden" name="telInternacionalCelular1" id="telInternacionalCelular1">
                             </div>
                             <div class="form-group">
-                                <label for="">Celular 2:</label>
-                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="celular2" id="celular2" class="form-control">
+                                <label for="celular2">Celular 2:</label>
+                                <input type="tel"  name="celular2" id="celular2" class="form-control">
+                                <small id="stelCelular2"></small>
+                                <input type="hidden" name="telInternacionalCelular2" id="telInternacionalCelular2">
                             </div>
                             <div class="form-group">
-                                <label for="">Teléfono de trabajo:</label>
-                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="telefonoTrabajo" id="telefonoTrabajo" class="form-control">
+                                <label for="telefonoTrabajo">Teléfono de trabajo:</label>
+                                <input type="tel" name="telefonoTrabajo" id="telefonoTrabajo" class="form-control">
+                                <small id="stelTrabajo"></small>
+                                <input type="hidden" name="telInternacionalTrabajo" id="telInternacionalTrabajo">
                             </div>
                         </div>  
                     </div>
@@ -244,9 +254,9 @@
                             <label for="">Actividad Económica:</label>
                             <div class="form-group">
                                 <label for="">Tipo:</label>
-                                <input type="checkbox" name="empleado" id="empleado">
+                                <input type="checkbox" name="empleado" id="empleado" value="0">
                                 <label for="">Empleado</label>
-                                <input type="checkbox" name="empresario" id="empresario">
+                                <input type="checkbox" name="empresario" id="empresario" value="1">
                                 <label for="">Empresario</label>
                             </div>
                             <div class="row">
@@ -259,41 +269,40 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-lg-4">
-                                    <label for="">Profesión:</label>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">Ingeniero</option>
+                                    <label for="profesion_id">Profesión:</label>
+                                    <select name="profesion_id" id="profesion_id" class="form-control">
+                                        <option value="1">Ingeniero</option>
                                     </select>
                                 </div>
                             </div>
-                            
-                            <label for="">Información laboral:</label>
+                            <label for="Informacionlaboral">Información laboral:</label>
                             <div class="form-group">
                                 <label for="">Nombre de la empresa o institución:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="nombreEmpresa" name="nombreEmpresa">
                             </div>
                             <div class="form-group">
                                 <label for="">Cargo / Puesto:</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="cargoPuesto" name="cargoPuesto">
                             </div>
                             <div class="row">
                                     <label for="">Tiempo de laborar:</label>
                                     <div class="form-group col">
                                         <label>años</label>
-                                        <input type="number" name="" id="" class="form-control">
+                                        <input type="number" name="años" id="años" class="form-control">
                                     </div>
                                     <div class="form-group col">
                                         <label>meses</label>
-                                        <input type="number" name="" id="" class="form-control">
+                                        <input type="number" name="meses" id="meses" class="form-control">
                                     </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col">
                                     <label for="">Total ingresos:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="ingresos" id="ingresos">
                                 </div>
                                 <div class="form-group col">
                                     <label for="">Total egresos:</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="egresos" id="egresos">
                                 </div>
                             </div>
                         </div>  
@@ -309,25 +318,27 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="nombreReferencia1" id="nombreReferencia1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label for="">Teléfono:</label>
-                                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" id="referencias1">
+                                                <input type="tel" class="form-control" id="referencias1" name="telReferencia1">
+                                                <small id="stelReferencia1"></small>
+                                                <input type="hidden" name="telInternacional1" id="telInternacional1">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input  type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+                                                <input  type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" name="emailReferencia1">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                             <label for="tipo_referencia_id">Tipo:</label>
-                                            <select wire:model="referencias.tipo_referencia_id" name="tipo_referencia_id" id="tipo_referencia_id" class="form-control">
+                                            <select name="tipo_referencia_id_1" id="tipo_referencia_id_1" class="form-control">
                                                 <option value="">Seleccione...</option>
                                                 @foreach($tipoReferencias as $tipoReferencia)
                                                     <option value={{$tipoReferencia->id}}>{{$tipoReferencia->tipoReferencia}}</option>
@@ -342,25 +353,27 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input wire:model="referencias.nombre" type="text" class="form-control">
+                                                <input type="text" class="form-control" name="nombreReferencia2" id="nombreReferencia2">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label for="">Teléfono:</label>
-                                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="referencias_telefono" id="referencias2" class="form-control">
+                                                <input type="tel" name="telReferencia2" id="referencias2" class="form-control">
+                                                <small id="stelReferencia2"></small>
+                                                <input type="hidden" name="telInternacional2" id="telInternacional2">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+                                                <input type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" name="emailReferencia2">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                             <label for="tipo_referencia_id">Tipo:</label>
-                                            <select wire:model="referencias.tipo_referencia_id" name="tipo_referencia_id" id="tipo_referencia_id" class="form-control">
+                                            <select name="tipo_referencia_id_2" id="tipo_referencia_id" class="form-control">
                                                 <option value="">Seleccione...</option>
                                                 @foreach($tipoReferencias as $tipoReferencia)
                                                     <option value={{$tipoReferencia->id}}>{{$tipoReferencia->tipoReferencia}}</option>
@@ -375,25 +388,27 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input  type="text" class="form-control">
+                                                <input  type="text" class="form-control" name="nombreReferencia3" id="nombreReferencia3">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label for="">Teléfono:</label>
-                                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" id="referencias3">
+                                                <input type="tel" class="form-control" id="referencias3" name="telReferencia3">
+                                                <small id="stelReferencia3"></small>
+                                                <input type="hidden" name="telInternacional3" id="telInternacional3">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input  type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+                                                <input  type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" name="emailReferencia3">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                             <label for="tipo_referencia_id">Tipo:</label>
-                                            <select wire:model="referencias.tipo_referencia_id" name="tipo_referencia_id" id="tipo_referencia_id" class="form-control">
+                                            <select name="tipo_referencia_id_3" id="tipo_referencia_id" class="form-control">
                                                 <option value="">Seleccione...</option>
                                                 @foreach($tipoReferencias as $tipoReferencia)
                                                     <option value={{$tipoReferencia->id}}>{{$tipoReferencia->tipoReferencia}}</option>
@@ -408,25 +423,27 @@
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">Nombre:</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="nombreReferencia4" id="nombreReferencia4">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label for="">Teléfono:</label>
-                                                <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-control" id="referencias4">
+                                                <input type="tel" class="form-control" id="referencias4" name="telReferencia4">
+                                                <small id="stelReferencia4"></small>
+                                                <input type="hidden" name="telInternacional4" id="telInternacional4">
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label for="">e-mail:</label>
-                                                <input type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+                                                <input type="email" class="form-control" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" name="emailReferencia4">
                                             </div>
                                         </div>
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                             <label for="tipo_referencia_id">Tipo:</label>
-                                            <select wire:model="referencias.tipo_referencia_id" name="tipo_referencia_id" id="tipo_referencia_id" class="form-control">
+                                            <select name="tipo_referencia_id_4" id="tipo_referencia_id" class="form-control">
                                                 <option value="">Seleccione...</option>
                                                 @foreach($tipoReferencias as $tipoReferencia)
                                                     <option value={{$tipoReferencia->id}}>{{$tipoReferencia->tipoReferencia}}</option>
@@ -447,19 +464,19 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">1. Nombre:</label>
-                                            <input type="text" class="form-control" id="beneficiarioNombre1">
+                                            <input type="text" class="form-control" name="beneficiarioNombre1" id="beneficiarioNombre1">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control" id="beneficiarioEdad1">
+                                            <input type="text" class="form-control" name="beneficiarioEdad1" id="beneficiarioEdad1">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control" id="beneficiarioParentesco1">
+                                            <input type="text" class="form-control" name="beneficiarioParentesco1" id="beneficiarioParentesco1">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
@@ -473,20 +490,20 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">2. Nombre:</label>
-                                            <input type="text" class="form-control" id="beneficiarioNombre2">
+                                            <input type="text" class="form-control" name="beneficiarioNombre2" id="beneficiarioNombre2">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control" id="beneficiarioEdad2">
+                                            <input type="text" class="form-control" name="beneficiarioEdad2" id="beneficiarioEdad2">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control" id="beneficiarioParentesco2">
+                                            <input type="text" class="form-control" name="beneficiarioParentesco2" id="beneficiarioParentesco2">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">
@@ -500,20 +517,20 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">3. Nombre:</label>
-                                            <input type="text" class="form-control" id="beneficiarioNombre3">
+                                            <input type="text" class="form-control" name="beneficiarioNombre3" id="beneficiarioNombre3">
                                         </div>
     
                                     </div>
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">Edad:</label>
-                                            <input type="text" class="form-control" id="beneficiarioEdad3">
+                                            <input type="text" class="form-control" name="beneficiarioEdad3" id="beneficiarioEdad3">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="">Parentesco:</label>
-                                            <input type="text" class="form-control" id="beneficiarioParentesco3">
+                                            <input type="text" class="form-control" name="beneficiarioParentesco3" id="beneficiarioParentesco3">
                                         </div>
                                     </div>
                                     <div class="col-lg-1">

@@ -14,6 +14,8 @@ class ActividadEconomica extends Model
         'años',
         'meses',
         'empleadoEmpresario',
+        'ingresos',
+        'egresos',
         'sector_id',
         'profesion_id',
         'solicitud_id',
@@ -22,11 +24,11 @@ class ActividadEconomica extends Model
 
     public function solicitud()
     {
-        return $this->belongsTo(Solicitud::class);
+        return $this->belongsTo(Solicitud::class,'solicitud_id','id');
     }
     public function sector()
     {
-        return $this->hasOne(Sector::class);
+        return $this->belongsTo(Sector::class,'sector_id','id');
     }
     public function profesion()
     {

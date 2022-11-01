@@ -15,6 +15,6 @@ class TipoReferencia extends Model
 
     public function solicitud()
     {
-        return $this->belongsTo(Referencia::class);
+        return $this->belongsTo(Referencia::class,'tipo_referencia_id','id');
     }
 }

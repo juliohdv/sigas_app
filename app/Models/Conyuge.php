@@ -17,6 +17,6 @@ class Conyuge extends Model
 
     public function solicitud()
     {
-        return $this->belongsTo(Solicitud::class,'conyuge_id');
+        return $this->belongsTo(Solicitud::class,'conyuge_id','id');
     }
 }

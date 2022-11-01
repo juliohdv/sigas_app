@@ -14,7 +14,7 @@ class Subregion extends Model
 
     public function solicitud()
     {
-        return $this->belongsTo(Solicitud::class, 'estado_solicitud_id');
+        return $this->belongsTo(Solicitud::class, 'subregiones_id','id');
     }
 
     public function region()

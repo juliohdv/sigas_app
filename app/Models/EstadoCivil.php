@@ -15,6 +15,6 @@ class EstadoCivil extends Model
 
     public function solicitud()
     {
-        return $this->hasMany(Solicitud::class, 'estado_solicitud_id');
+        return $this->belongsTo(Solicitud::class, 'estado_solicitud_id','id');
     }
 }

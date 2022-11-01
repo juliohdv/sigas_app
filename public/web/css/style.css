@@ -4138,3 +4138,47 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     background: rgb(117,221,221);
     background: linear-gradient(309deg, rgba(117,221,221,1) 0%, rgba(80,137,145,1) 10%, rgba(23,42,58,1) 30%, rgba(0,67,70,1) 71%, rgba(9,188,138,1) 100%); 
 }
+.order-card{
+    color: #fff;
+}
+.bg-c-blue{
+    background: linear-gradient(45deg,#73b4ff,#4099ff);
+}
+.bg-c-green{
+    background: linear-gradient(45deg,#59e0c5,#2ed8b6);
+}
+.bg-c-pink{
+    background: linear-gradient(45deg,#ff869a,#ff5970);
+}
+.bg-c-orange{
+    background: linear-gradient(45deg,#ffa886,#ff9659);
+}
+.bg-c-red{
+    background: linear-gradient(45deg,#ff8686,#ff5959);
+}
+.bg-c-purple{
+    background: linear-gradient(45deg,#ba86ff,#596aff);
+}
+.bg-c-gray{
+    background: linear-gradient(45deg,#dad6d6,#88898b);
+}
+.card{
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.card .card-block{
+    padding: 25px;
+}
+.order-card{
+    font-size: 26px;
+}
+.f-left{
+    float: left;
+}
+.f-right{
+    float: right;
+}

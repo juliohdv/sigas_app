@@ -179,54 +179,136 @@
    const telefonoTrabajo = document.querySelector("#telefonoTrabajo");
    const celular1 = document.querySelector("#celular1");
    const celular2 = document.querySelector("#celular2");
-   window.intlTelInput(conyuge_telefono, {
+
+   const conyuge = window.intlTelInput(conyuge_telefono, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
    });
-    window.intlTelInput(referencia_telefono1, {
+    const referencia1 = window.intlTelInput(referencia_telefono1, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
        placeholderNumberType: 'FIXED_LINE_OR_MOBILE',
    });
-   window.intlTelInput(referencia_telefono2, {
+    const referencia2 = window.intlTelInput(referencia_telefono2, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
    });
-   window.intlTelInput(referencia_telefono3, {
+   const referencia3 = window.intlTelInput(referencia_telefono3, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
    });
-   window.intlTelInput(referencia_telefono4, {
+   const referencia4 = window.intlTelInput(referencia_telefono4, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
    });
-   window.intlTelInput(telefonoCasa, {
+   const casa = window.intlTelInput(telefonoCasa, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
        placeholderNumberType: 'FIXED_LINE',
    });
-   window.intlTelInput(telefonoTrabajo, {
+   const trabajo = window.intlTelInput(telefonoTrabajo, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
        placeholderNumberType: 'FIXED_LINE',
    });
-   window.intlTelInput(celular1, {
+   const cel1 = window.intlTelInput(celular1, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
    });
-   window.intlTelInput(celular2, {
+   const cel2 = window.intlTelInput(celular2, {
      preferredCountries: ["sv","us", "co", "in", "de"],
+     nationalMode: true,
      utilsScript:
        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
    });
+   const cambioConyuge = function(){
+        const numero = (conyuge.isValidNumber() ? conyuge.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacionalConyuge').attr('value',conyuge.getNumber());
+        $('#stelConyuge').text(nodo.data);
+   }
+    const cambioReferencia1 = function(){
+        const numero = (referencia1.isValidNumber() ? referencia1.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacional1').attr('value',referencia1.getNumber());
+        $('#stelReferencia1').text(nodo.data);
+   }
+   const cambioReferencia2 = function(){
+        const numero = (referencia2.isValidNumber() ? referencia2.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacional2').attr('value',referencia2.getNumber());
+        $('#stelReferencia2').text(nodo.data);
+   }
+   const cambioReferencia3 = function(){
+        const numero = (referencia3.isValidNumber() ? referencia3.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacional3').attr('value',referencia3.getNumber());
+        $('#stelReferencia3').text(nodo.data);
+   }
+   const cambioReferencia4 = function(){
+        const numero = (referencia4.isValidNumber() ? referencia4.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacional4').attr('value',referencia4.getNumber());
+        $('#stelReferencia4').text(nodo.data);
+   }
+   const cambioCassa = function(){
+        const numero = (casa.isValidNumber() ? casa.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacionalCasa').attr('value',casa.getNumber());
+        $('#stelCasa').text(nodo.data);
+   }
+   const cambioTrabajo = function(){
+        const numero = (trabajo.isValidNumber() ? trabajo.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacionalTrabajo').attr('value',trabajo.getNumber());
+        $('#stelTrabajo').text(nodo.data);
+   }
+   const cambioCelular1 = function(){
+        const numero = (cel1.isValidNumber() ? cel1.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacionalCelular1').attr('value',cel1.getNumber());
+        $('#stelCelular1').text(nodo.data);
+   }
+   const cambioCelular2 = function(){
+        const numero = (cel2.isValidNumber() ? cel2.getNumber() : "Ingrese un número válido");
+        const nodo = document.createTextNode(numero);
+        $('#telInternacionalCelular2').attr('value',cel2.getNumber());
+        $('#stelCelular2').text(nodo.data);
+   }
+   conyuge_telefono.addEventListener('chage',cambioConyuge)
+   conyuge_telefono.addEventListener('keyup',cambioConyuge)
+   referencia_telefono1.addEventListener('change', cambioReferencia1);
+   referencia_telefono1.addEventListener('keyup', cambioReferencia1);
+   referencia_telefono2.addEventListener('change', cambioReferencia2);
+   referencia_telefono2.addEventListener('keyup', cambioReferencia2);
+   referencia_telefono3.addEventListener('change', cambioReferencia3);
+   referencia_telefono3.addEventListener('keyup', cambioReferencia3);
+   referencia_telefono4.addEventListener('change', cambioReferencia4);
+   referencia_telefono4.addEventListener('keyup', cambioReferencia4);
+   celular1.addEventListener('change', cambioCelular1);
+   celular1.addEventListener('keyup', cambioCelular1);
+   celular2.addEventListener('change', cambioCelular2);
+   celular2.addEventListener('keyup', cambioCelular2);
+   telefonoCasa.addEventListener('change', cambioCassa);
+   telefonoCasa.addEventListener('keyup', cambioCassa);
+   telefonoTrabajo.addEventListener('change', cambioTrabajo);
+   telefonoTrabajo.addEventListener('keyup', cambioTrabajo);
 </script>
 @yield('page_js')
 @yield('scripts')

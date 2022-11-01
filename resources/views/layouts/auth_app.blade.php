@@ -24,8 +24,7 @@
             <div class="row">
                 <div class="col-md-6 offset-md-3">
                     <div class="login-brand">
-                        <img src="{{ asset('img/sigas.svg') }}" alt="logo" width="250"
-                             class="shadow-light">
+                        <img src="{{ asset('img/sigas.svg') }}" alt="logo" width="250" >
                     </div>
                     @yield('content')
                     <div class="simple-footer">
