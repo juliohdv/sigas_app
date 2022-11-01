@@ -1,11 +1,10 @@
 @extends('layouts.auth_app')
 @section('title')
-    Admin Login
+    Iniciar Sesión
 @endsection
 @section('content')
     <div class="card card-primary">
-        <div class="card-header"><h4>Admin Login</h4></div>
-
+        <div class="card-header"><h4>Inicio de Sesión</h4></div>
         <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
@@ -58,7 +57,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" tabindex="4">
                         Iniciar Sesión
                     </button>
                 </div>

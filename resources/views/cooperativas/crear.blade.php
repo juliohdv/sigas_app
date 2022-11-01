@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-body">
                             @if($errors->any())
-                                <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                     <strong>!Revise los campos!</strong>
                                         @foreach($errors->all() as $error)
                                             <span class="badge badge-danger">{{$error}}</span>
@@ -44,7 +44,8 @@
                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
                                         <label for="logo_url">Logo URL </label>
-                                        {!! Form::text('logo_url', null, array('class'=>'form-control')) !!}    
+                                        {{-- {!! Form::text('logo_url', null, array('class'=>'form-control')) !!}     --}}
+                                        {!! Form::file('logo_url', []) !!}
                                     </div> 
                                </div> 
                                     <div class="col-xs-12 col-sm-12 col-md-12">

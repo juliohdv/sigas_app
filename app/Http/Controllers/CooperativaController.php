@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cooperativa;
+use Illuminate\Support\Facades\DB;
 
 class CooperativaController extends Controller
 {
@@ -104,10 +105,10 @@ class CooperativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cooperativa $cooperativa)
+    public function destroy($id)
     {
         //
-        $cooperativa->delete();
-        return view('cooperativas.index');
+        DB::table('cooperativas')->where('id',$id)->delete();
+        return redirect()->route('cooperativas.index');
     }
 }
