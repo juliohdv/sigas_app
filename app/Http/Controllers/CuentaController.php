@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Cuenta;
 use Illuminate\Http\Request;
 
 class CuentaController extends Controller
@@ -19,6 +19,8 @@ class CuentaController extends Controller
     public function index()
     {
         //
+        $cuentas = Cuenta::with('tipoCuenta')->paginate(5);
+        return view('cuentas.index',compact('cuentas'));
         
     }
 
@@ -87,6 +89,11 @@ class CuentaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function abonarCuenta($idCuenta)
+    {
+        
     }
  
 }

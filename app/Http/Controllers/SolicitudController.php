@@ -17,7 +17,7 @@ use App\Models\Pais;
 use App\Models\Referencia;
 use App\Models\TipoReferencia;
 use Auth;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use PDF;
 
 class SolicitudController extends Controller
 {
@@ -248,7 +248,26 @@ class SolicitudController extends Controller
         $beneficiarios = Beneficiario::where('solicitud_id', $idSolicitud)->get();
         return view('solicitudes.ver',compact('solicitud','documento','residencia','actividad','referencias','beneficiarios'));
     }    
-
+    public function imprimirSolicitud($idSolicitud)
+    {
+        $solicitud = Solicitud::with('subRegion')->find($idSolicitud);
+        $documento = Documento::with('tipoDocumento')->where('solicitud_id','=',$idSolicitud)->first();
+        $residencia = Residencia::with('subregion')->where('solicitud_id','=',$idSolicitud)->first();
+        $actividad = ActividadEconomica::where('solicitud_id',$idSolicitud)->first();
+        $referencias = Referencia::where('solicitud_id',$idSolicitud)->get();
+        $beneficiarios = Beneficiario::where('solicitud_id', $idSolicitud)->get();
+        //return view('pdf.pdf_solicitud',compact('solicitud','documento','residencia','actividad','referencias','beneficiarios'));
+        $pdf = PDF::loadView('pdf.pdf_solicitud',
+        [
+        'solicitud' => $solicitud,
+        'documento' => $documento,
+        'residencia'=> $residencia,
+        'actividad' => $actividad,
+        'referencias' => $referencias,
+        'beneficiarios' => $beneficiarios
+    ]);
+        return $pdf->download();
+    }   
 
     /**
      * Update the specified resource in storage.

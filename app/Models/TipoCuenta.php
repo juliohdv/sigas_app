@@ -15,6 +15,6 @@ class TipoCuenta extends Model
 
     public function cuenta()
     {
-        return $this->belongsTo(Cuenta::class);
+        return $this->belongsTo(Cuenta::class,'tipo_cuenta_id','id');
     }
 }

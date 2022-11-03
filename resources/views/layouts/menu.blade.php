@@ -21,17 +21,17 @@
 </li>
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
     <a class="nav-link" href="/solicitudes/">
-        <i class=" fas fa-file-contract "></i><span>Solicitud de Registro</span>
+        <i class=" fa fa-file-signature "></i><span>Solicitud de Registro</span>
     </a>
 </li>
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
     <a class="nav-link" href="/paises">
-        <i class=" fas fa-file-contract "></i><span>Paises</span>
+        <i class=" fa fa-flag "></i><span>Paises</span>
     </a>
 </li>
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
-    <a class="nav-link" href="/paises">
-        <i class=" fas fa-file-contract "></i><span>Cuentas</span>
+    <a class="nav-link" href="/cuentas">
+        <i class="fa fa-piggy-bank "></i><span>Cuentas</span>
     </a>
 </li>
 @endrole
@@ -43,7 +43,7 @@
 </li>
 <li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
     <a class="nav-link" href="/solicitudes/">
-        <i class=" fas fa-file-contract "></i><span>Solicitud de Registro</span>
+        <i class=" fa fa-file-signature "></i><span>Solicitud de Registro</span>
     </a>
 </li>
 @endrole

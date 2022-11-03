@@ -35,12 +35,13 @@
                                                     <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>2]) }}" class="btn btn-primary">Aprobar</a>
                                                 @else
                                                     @if ($solicitud->estado_solicitud_id == '2')
-                                                        <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>3]) }}" class="btn btn-primary">Denegar</a>
+                                                        <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>3]) }}" class="fa-solid fa-file-circle-xmark btn btn-primary"> Denegar</a>
                                                     @else
                                                         
                                                     @endif    
                                                 @endif
-                                                <a href="{{ route('verSolicitud', ['idSolicitud'=>$solicitud->id]) }}" class="btn btn-primary">Ver</a>
+                                                <a href="{{ route('verSolicitud', ['idSolicitud'=>$solicitud->id]) }}" class="fa fa-eye btn btn-primary"> Ver</a>
+                                                <a href="{{ route('imprimirSolicitud', ['idSolicitud'=>$solicitud->id]) }}" class="fa fa-file-pdf btn btn-primary"> PDF</a>
                                             </td>
                                         </tr>
                                     @endforeach
