@@ -18,6 +18,6 @@ class Asociado extends Model
 
     public function solicitud()
     {
-        return $this->hasMany(Solicitud::class);
+        return $this->belongsTo(Solicitud::class,'solicitud_id','id');
     }
 }

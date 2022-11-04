@@ -15,6 +15,7 @@ use App\Models\EstadoCivil;
 use App\Models\Residencia;
 use App\Models\Documento;
 use App\Models\Pais;
+use App\Models\User;
 use App\Models\Referencia;
 use App\Models\TipoReferencia;
 use Auth;
@@ -24,7 +25,7 @@ class SolicitudController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-solicitud | crear-solicitud | editar-solicitud | borrar-solicitud | cambiar-estado-solicitud' , ['only'=>['index']]);
+        $this->middleware('permission:ver-solicitud|crear-solicitud|editar-solicitud|borrar-solicitud|cambiar-estado-solicitud' , ['only'=>['index']]);
         $this->middleware('permission:crear-solicitud', ['only'=>['create','store']]);
         $this->middleware('permission:editar-solicitud', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-solicitud', ['only'=>['destroy']]);
@@ -38,8 +39,13 @@ class SolicitudController extends Controller
     public function index()
     {
         //
-        $mensaje = "";
-        $solicitudes = Solicitud::with('estadoSolicitud')->orderBy('id','asc')->paginate(10);
+        $mensaje = "";  
+        if(Auth::user()->hasRole('Invitado') || Auth::user()->hasRole('Asociado')){
+            $solicitudes = Solicitud::where('email1', Auth::user()->email)->orderBy('id','asc')->paginate(10);
+        }else{
+            $solicitudes = Solicitud::with('estadoSolicitud')->orderBy('id','asc')->paginate(10);
+        }
+        
         return view('solicitudes.index',compact('solicitudes','mensaje'));
     }
 
@@ -268,8 +274,8 @@ class SolicitudController extends Controller
                 'asociado_id' => Asociado::latest()->first()->id,
                 'tipo_cuenta_id' => 2,
             ]);
-            $user = Auth::user();
-            $user::syncRoles('Asociado');
+            $user = User::where('email',Solicitud::where('id',$idSolicitud)->first()->email1);
+            $user->roles()->sync(5);
             return redirect()->route('solicitudes.index');
         }else{
             return redirect()->route('solicitudes.index');

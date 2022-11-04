@@ -67,7 +67,7 @@ class Solicitud extends Model
     }
     public function asociado()
     {
-        return $this->belongsTo(Asociado::class);
+        return $this->belongsTo(Asociado::class,'solicitud_id','id');
     }
     public function actividadEconomica()
     {

@@ -47,6 +47,22 @@
     </a>
 </li>
 @endrole
-
+@role('Asociado')
+<li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
+    <a class="nav-link" href="/home">
+        <i class=" fas fa-home"></i><span>Dashboard</span>
+    </a>
+</li>
+<li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
+    <a class="nav-link" href="/solicitudes/">
+        <i class=" fa fa-file-signature "></i><span>Solicitud de Registro</span>
+    </a>
+</li>
+<li class="side-menus {{ Request::is('*') ? 'active' : '' }}">
+    <a class="nav-link" href="/cuentas">
+        <i class="fa fa-piggy-bank "></i><span>Cuentas</span>
+    </a>
+</li>
+@endrole
 
 
