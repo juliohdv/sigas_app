@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActividadEconomica;
+use App\Models\Archivo;
 use App\Models\Asociado;
 use App\Models\Beneficiario;
 use Illuminate\Http\Request;
@@ -91,11 +92,14 @@ class SolicitudController extends Controller
 
         ]);
         // Conyuge
-        Conyuge::create([
-            'nombre' => $request->input('conyuge_nombre'),
-            'direccion' => $request->input('conyuge_direccion'),
-            'telefono' => $request->input('telInternacionalConyuge')
-        ])->save();
+        if($request->input('conyuge_nombre') != null || $request->input('conyuge_direccion') || $request->input('telInternacionalConyuge')){
+            Conyuge::create([
+                'nombre' => $request->input('conyuge_nombre'),
+                'direccion' => $request->input('conyuge_direccion'),
+                'telefono' => $request->input('telInternacionalConyuge')
+            ]);
+        }
+       
         // Datos Solicitud
         Solicitud::create([
             'nombres' => $request->input('nombres'),
@@ -125,11 +129,37 @@ class SolicitudController extends Controller
             'subregion_id' => $request->input('residencia_subregion_id'),
             'solicitud_id' => Solicitud::latest()->first()->id,
         ]);
+        //DUI o PASAPORTE
         Documento::create([
             'numeroDocumento' => $request->input('numero_documento'),
             'tipo_documento_id' => $request->input('tipo_documento_id'),
             'solicitud_id' => Solicitud::latest()->first()->id,
         ]);
+        //NIT
+        if($request->input('nit') != null){
+            Documento::create([
+                'numeroDocumento' => $request->input('nit'),
+                'tipo_documento_id' => 3,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
+        //ISSS
+        if($request->input('isss') != null){
+            Documento::create([
+                'numeroDocumento' => $request->input('isss'),
+                'tipo_documento_id' => 3,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
+        //NUP
+        if($request->input('bup') != null){
+            Documento::create([
+                'numeroDocumento' => $request->input('nup'),
+                'tipo_documento_id' => 3,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
+
         // Actividad Económica
         ActividadEconomica::create([
             'nombreEmpresa' => $request->input('nombreEmpresa'),
@@ -163,6 +193,22 @@ class SolicitudController extends Controller
                 'solicitud_id' => Solicitud::latest()->first()->id,
             ]);
         };
+        // Archivos PDF o Imágenes
+        $this->validate($request,[
+            'filename' => 'required',
+            'filename.*'=> 'mimes:doc,pdf,docx,zip,png,jpeg',
+        ]);
+        if($request->hasFile('filename')){
+            foreach($request->file('filename') as $file){
+                $nombreArchivo=$file->getClientOriginalName();
+                $file->move(public_path().'/files/',$nombreArchivo);
+                Archivo::create([
+                    'nombreArchivo' => $nombreArchivo,
+                    'path' => public_path().'/files/'.$nombreArchivo,
+                    'solicitud_id' => Solicitud::latest()->first()->id,
+                ]);
+            }
+        }
 
         return redirect()->route('solicitudes.index');
     }

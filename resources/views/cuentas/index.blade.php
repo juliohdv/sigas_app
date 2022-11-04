@@ -26,7 +26,7 @@
                                             <td>{{$cuenta->numeroCuenta}}</td>
                                             <td>$ {{$cuenta->saldo}}</td>
                                             <td>{{$cuenta->tipoCuenta->tipoCuenta}}</td>
-                                            <td><a href="{{ route('abonarCuenta', ['idCuenta'=>$cuenta->id]) }}" class="fa fa-money-bill btn btn-primary"> Abonar</a></td>
+                                            <td><a href="{{ route('abonarCuenta', ['idCuenta'=>$cuenta->id]) }}" class="fa fa-money-bill btn btn-primary" id="btn-abonar"> Abonar</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

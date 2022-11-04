@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Cuenta;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
+use Alert;
 class CuentaController extends Controller
 {
     //
@@ -21,7 +22,6 @@ class CuentaController extends Controller
         //
         $cuentas = Cuenta::with('tipoCuenta')->paginate(5);
         return view('cuentas.index',compact('cuentas'));
-        
     }
 
     /**
@@ -93,7 +93,7 @@ class CuentaController extends Controller
 
     public function abonarCuenta($idCuenta)
     {
-        
+       Alert::html('<input type="text" name="monto" class="form-control" value="0.00">','Ingrese el monto a abonar');
+        return redirect()->route('cuentas.index');
     }
- 
 }

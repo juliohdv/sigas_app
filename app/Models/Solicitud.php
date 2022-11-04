@@ -73,4 +73,7 @@ class Solicitud extends Model
     {
         return $this->belongsTo(ActividadEconomica::class,'solicitud_id','id');
     }
+    public function archivos(){
+        return $this->belongsTo(Archivo::class,'solicitud_id','id');
+    }
 }
