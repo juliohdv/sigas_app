@@ -18,6 +18,6 @@ class Cuenta extends Model
 
     public function tipoCuenta()
     {
-        return $this->hasOne(TipoCuenta::class);
+        return $this->belongsTo(TipoCuenta::class,'tipo_cuenta_id','id');
     }
 }

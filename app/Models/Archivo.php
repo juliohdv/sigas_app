@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Asociado extends Model
+class Archivo extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'codigo',
-        'estado',
+        'nombreArchivo',
+        'path',
         'solicitud_id',
-        
     ];
-    protected $table = 'asociado';
+    protected $table = 'archivos';
 
-    public function solicitud()
-    {
+    public function solicitud(){
         return $this->belongsTo(Solicitud::class,'solicitud_id','id');
     }
 }

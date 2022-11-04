@@ -18,7 +18,7 @@
                 </div>
             @endif
             <div class="row">
-                {!! Form::open(array('route'=>'solicitudes.store','method'=>'POST')) !!}
+                {!! Form::open(array('route'=>'solicitudes.store','method'=>'POST','enctype'=>'multipart/form-data')) !!}
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -543,6 +543,22 @@
                                 </div>
                                 <input type="hidden" name="estado_solicitud_id" value="1">
                             </div>
+                            <h5 class="text-center">Archivos:</h5>
+                            <div class="input-group control-group" id="increment" >
+
+                                <input type="file" name="filename[]" class="form-control">
+                                <div class="input-group-btn"> 
+                                  <button class="btn btn-success" id="btnArchivo" type="button"><i class="glyphicon glyphicon-plus"></i>Agregar</button>
+                                </div>
+                              </div>
+                              <div class="clone" id="clone" hidden>
+                                <div class="control-group input-group" id="control-group" style="margin-top:10px">
+                                  <input type="file" name="filename[]" class="form-control">
+                                  <div class="input-group-btn"> 
+                                    <button class="btn btn-danger" id="btnQuitarArchivo" type="button"><i class="glyphicon glyphicon-remove"></i> Quitar</button>
+                                  </div>
+                                </div>
+                              </div>
                             <div class="col-lg-4">
                                 <button type="submit" class="btn btn-success">Enviar</button>
                             </div>

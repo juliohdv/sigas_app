@@ -16,12 +16,13 @@
     <link href="{{ asset('assets/css/select2.min.css') }}" rel="stylesheet" type="text/css"/>
     <!--LIVEWIRE Styles-->
     @livewireStyles
+    {{-- SweetAlert --}}
+    
 @yield('page_css')
 <!-- Template CSS -->
     <link rel="stylesheet" href="{{ asset('web/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('web/css/components.css')}}">
     @yield('page_css')
-
     @yield('css')
 </head>
 <body>
@@ -59,6 +60,7 @@
 <script src="{{ asset('assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
 
+@include('sweetalert::alert')
 <!-- Template JS File -->
 <script src="{{ asset('web/js/stisla.js') }}"></script>
 <script src="{{ asset('web/js/scripts.js') }}"></script>
@@ -309,6 +311,19 @@
    telefonoCasa.addEventListener('keyup', cambioCassa);
    telefonoTrabajo.addEventListener('change', cambioTrabajo);
    telefonoTrabajo.addEventListener('keyup', cambioTrabajo);
+</script>
+{{-- Formulario archivos solicitud --}}
+<script type="text/javascript">
+    $(document).ready(function() {
+    $("#btnArchivo").click(function(){ 
+        var html = $("#clone").html();
+        $("#increment").after(html);
+    });
+    $("body").on("click","#btnQuitarArchivo",function(){ 
+        $(this).parents("#control-group").remove();
+    });
+});
+
 </script>
 @yield('page_js')
 @yield('scripts')

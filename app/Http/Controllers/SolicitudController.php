@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActividadEconomica;
+use App\Models\Archivo;
 use App\Models\Asociado;
 use App\Models\Beneficiario;
 use Illuminate\Http\Request;
@@ -14,16 +15,17 @@ use App\Models\EstadoCivil;
 use App\Models\Residencia;
 use App\Models\Documento;
 use App\Models\Pais;
+use App\Models\User;
 use App\Models\Referencia;
 use App\Models\TipoReferencia;
 use Auth;
-use Illuminate\Support\Facades\Auth as FacadesAuth;
+use PDF;
 
 class SolicitudController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-solicitud | crear-solicitud | editar-solicitud | borrar-solicitud | cambiar-estado-solicitud' , ['only'=>['index']]);
+        $this->middleware('permission:ver-solicitud|crear-solicitud|editar-solicitud|borrar-solicitud|cambiar-estado-solicitud' , ['only'=>['index']]);
         $this->middleware('permission:crear-solicitud', ['only'=>['create','store']]);
         $this->middleware('permission:editar-solicitud', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-solicitud', ['only'=>['destroy']]);
@@ -37,8 +39,13 @@ class SolicitudController extends Controller
     public function index()
     {
         //
-        $mensaje = "";
-        $solicitudes = Solicitud::with('estadoSolicitud')->orderBy('id','asc')->paginate(10);
+        $mensaje = "";  
+        if(Auth::user()->hasRole('Invitado') || Auth::user()->hasRole('Asociado')){
+            $solicitudes = Solicitud::where('email1', Auth::user()->email)->orderBy('id','asc')->paginate(10);
+        }else{
+            $solicitudes = Solicitud::with('estadoSolicitud')->orderBy('id','asc')->paginate(10);
+        }
+        
         return view('solicitudes.index',compact('solicitudes','mensaje'));
     }
 
@@ -91,11 +98,14 @@ class SolicitudController extends Controller
 
         ]);
         // Conyuge
-        Conyuge::create([
-            'nombre' => $request->input('conyuge_nombre'),
-            'direccion' => $request->input('conyuge_direccion'),
-            'telefono' => $request->input('telInternacionalConyuge')
-        ])->save();
+        if($request->input('conyuge_nombre') != null || $request->input('conyuge_direccion') || $request->input('telInternacionalConyuge')){
+            Conyuge::create([
+                'nombre' => $request->input('conyuge_nombre'),
+                'direccion' => $request->input('conyuge_direccion'),
+                'telefono' => $request->input('telInternacionalConyuge')
+            ]);
+        }
+       
         // Datos Solicitud
         Solicitud::create([
             'nombres' => $request->input('nombres'),
@@ -125,11 +135,37 @@ class SolicitudController extends Controller
             'subregion_id' => $request->input('residencia_subregion_id'),
             'solicitud_id' => Solicitud::latest()->first()->id,
         ]);
+        //DUI o PASAPORTE
         Documento::create([
             'numeroDocumento' => $request->input('numero_documento'),
             'tipo_documento_id' => $request->input('tipo_documento_id'),
             'solicitud_id' => Solicitud::latest()->first()->id,
         ]);
+        //NIT
+        if($request->input('nit') != null){
+            Documento::create([
+                'numeroDocumento' => $request->input('nit'),
+                'tipo_documento_id' => 3,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
+        //ISSS
+        if($request->input('isss') != null){
+            Documento::create([
+                'numeroDocumento' => $request->input('isss'),
+                'tipo_documento_id' => 3,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
+        //NUP
+        if($request->input('bup') != null){
+            Documento::create([
+                'numeroDocumento' => $request->input('nup'),
+                'tipo_documento_id' => 3,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
+
         // Actividad Económica
         ActividadEconomica::create([
             'nombreEmpresa' => $request->input('nombreEmpresa'),
@@ -163,6 +199,22 @@ class SolicitudController extends Controller
                 'solicitud_id' => Solicitud::latest()->first()->id,
             ]);
         };
+        // Archivos PDF o Imágenes
+        $this->validate($request,[
+            'filename' => 'required',
+            'filename.*'=> 'mimes:doc,pdf,docx,zip,png,jpeg',
+        ]);
+        if($request->hasFile('filename')){
+            foreach($request->file('filename') as $file){
+                $nombreArchivo=$file->getClientOriginalName();
+                $file->move(public_path().'/files/',$nombreArchivo);
+                Archivo::create([
+                    'nombreArchivo' => $nombreArchivo,
+                    'path' => public_path().'/files/'.$nombreArchivo,
+                    'solicitud_id' => Solicitud::latest()->first()->id,
+                ]);
+            }
+        }
 
         return redirect()->route('solicitudes.index');
     }
@@ -222,8 +274,8 @@ class SolicitudController extends Controller
                 'asociado_id' => Asociado::latest()->first()->id,
                 'tipo_cuenta_id' => 2,
             ]);
-            $user = Auth::user();
-            $user::syncRoles('Asociado');
+            $user = User::where('email',Solicitud::where('id',$idSolicitud)->first()->email1);
+            $user->roles()->sync(5);
             return redirect()->route('solicitudes.index');
         }else{
             return redirect()->route('solicitudes.index');
@@ -248,7 +300,26 @@ class SolicitudController extends Controller
         $beneficiarios = Beneficiario::where('solicitud_id', $idSolicitud)->get();
         return view('solicitudes.ver',compact('solicitud','documento','residencia','actividad','referencias','beneficiarios'));
     }    
-
+    public function imprimirSolicitud($idSolicitud)
+    {
+        $solicitud = Solicitud::with('subRegion')->find($idSolicitud);
+        $documento = Documento::with('tipoDocumento')->where('solicitud_id','=',$idSolicitud)->first();
+        $residencia = Residencia::with('subregion')->where('solicitud_id','=',$idSolicitud)->first();
+        $actividad = ActividadEconomica::where('solicitud_id',$idSolicitud)->first();
+        $referencias = Referencia::where('solicitud_id',$idSolicitud)->get();
+        $beneficiarios = Beneficiario::where('solicitud_id', $idSolicitud)->get();
+        //return view('pdf.pdf_solicitud',compact('solicitud','documento','residencia','actividad','referencias','beneficiarios'));
+        $pdf = PDF::loadView('pdf.pdf_solicitud',
+        [
+        'solicitud' => $solicitud,
+        'documento' => $documento,
+        'residencia'=> $residencia,
+        'actividad' => $actividad,
+        'referencias' => $referencias,
+        'beneficiarios' => $beneficiarios
+    ]);
+        return $pdf->download();
+    }   
 
     /**
      * Update the specified resource in storage.
