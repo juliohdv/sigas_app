@@ -9,7 +9,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <tr>
-                        <td><img src="{{ asset('img/sigas.svg') }}" alt="logo" width="150" ></td>
+                        <td><img src="{{asset('assets/images/'.$cooperativa->logo_url) }}" alt="logo" width="150" ></td>
                         <td>CÓDIGO:</td>
                         <td>RC-PRM-01-01-01 VX</td>
                     </tr>
@@ -44,13 +44,17 @@
                     </tr>
                     <tr>
                         <td>Estado Familiar: {{$solicitud->estadoCivil->estadoCivil}}</td>
+                        @if($solicitud->conyuge != null)
                         <td colspan="2">Datos del cónyuge o compañero de vida:</td>
+                        @endif
                     </tr>
+                    @if($solicitud->conyuge != null)
                     <tr>
                         <td>Nombre completo: {{$solicitud->conyuge->nombre}}</td>
                         <td>Teléfono: {{$solicitud->conyuge->telefono}}</td>
                         <td>Dirección: {{$solicitud->conyuge->direccion}}</td>
                     </tr>
+                    @endif
                     <tr>
                         <td colspan="3"><h4>DOMICILIO Y DATOS DE CONTACTO</h4></td>
                     </tr>
@@ -126,15 +130,15 @@
                 </tr>
                 <tr>
                     <td colspan="3">yo, {{$solicitud->nombres}} {{$solicitud->primerApellido}} {{$solicitud->segundoApellido}}
-                    por medio de la presente solicito, se me admita como miembro de NOMBRE_COOPERATIVA comprometiendome a conocer y
+                    por medio de la presente solicito, se me admita como miembro de {{$cooperativa->nombre}} comprometiendome a conocer y
                     cumplir los estatutos y reglamentos que rigen la misma, así como las enmiendas que se le hagan. En este acto
-                    aporto en concepto de Membresía, Cuota de Aportación y Ahorro las siguientes cantidades MEMBRESIA $_____, AHORRO $_____.
+                    aporto en concepto de Cuota de Aportación y Ahorro las siguientes cantidades APORTACIÓN ${{$cooperativa->montoApertura}}, AHORRO ${{$cooperativa->montoAhorro}}.
                     Así mismo, bajo juramento DECLARO: que toda la información proporcionada y anexada por mi persona en este formulario es fidedigna
                     en todas sus partes; que el origen y destino de mis fondos son lícitos y que de ninguna manera estan relacionados con los delitos contemplados 
                     en la Ley de Lavado de Dinero y Activos, ni con actividades de Financiación al Terrorismo, por lo tanto, eximo de toda rsponsabilidad
-                    civil o penal a NOMBRE_COOPERATIVA, así como a los miembros del Consejo de Administración, Comités y empleados en caso de verme
+                    civil o penal a {{$cooperativa->nombre}}, así como a los miembros del Consejo de Administración, Comités y empleados en caso de verme
                     involucrado con los delitos antes mencionados en. En caso de que fuere necesario, <strong>me comprometo a presentar
-                        documentación que sea solicitada por NOMBRE_COOPERATIVA,</strong> y para constancia firmo el presente documento:
+                        documentación que sea solicitada por {{$cooperativa->nombre}},</strong> y para constancia firmo el presente documento:
                     </td>
                 </tr>
                 <tr>
@@ -142,7 +146,7 @@
                     <td>Fecha y hora: <u>{{$solicitud->created_at}}</u></td>
                 </tr>
                 <tr>
-                    <td><h5>ESPACIO RESERVADO PARA NOMBRE_COOPERATIVA</h5></td>
+                    <td><h5>ESPACIO RESERVADO PARA {{$cooperativa->nombre}}</h5></td>
                 </tr>
                 <tr>
                     <td>El Consejo de Administración en Sesión celebrada con fecha y hora {{$solicitud->updated_at}} acuerda:
@@ -160,6 +164,11 @@
                     <td>Presidente:__________________________</td>
                     <td>Secretario:___________________________</td>
                     <td>Sello:_________________</td>
+                </tr>
+                <tr>
+                    <td>{{$cooperativa->presidente}}</td>
+                    <td>{{$cooperativa->secretario}}</td>
+                    <td></td>
                 </tr>
                 </table>
             </div>

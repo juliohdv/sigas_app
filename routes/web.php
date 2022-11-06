@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsociadoController;
 use Illuminate\Support\Facades\Route;
 
 //Controladores
@@ -39,9 +40,11 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('paises', PaisController::class);
     Route::resource('solicitudes', SolicitudController::class);
     Route::resource('cuentas', CuentaController::class);
+    Route::resource('asociados',AsociadoController::class);
     Route::get('editarEstado/idSolicitud/{idSolicitud}/nuevoEstado/{nuevoEstado}', 'App\Http\Controllers\SolicitudController@editarEstado')->name('editarEstado');
     Route::get('verSolicitud/idSolicitud/{idSolicitud}', 'App\Http\Controllers\SolicitudController@verSolicitud')->name('verSolicitud');
     Route::get('imprimirSolicitud/idSolicitud/{idSolicitud}', 'App\Http\Controllers\SolicitudController@imprimirSolicitud')->name('imprimirSolicitud');
     Route::get('abonarCuenta/idCuenta/{idCuenta}','App\Http\Controllers\CuentaController@abonarCuenta')->name('abonarCuenta');
+
     
 });
