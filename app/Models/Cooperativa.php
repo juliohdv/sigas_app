@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Cooperativa extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre','mision','vision','logo_url'];
+    protected $fillable = ['nombre','mision','vision','logo_url','presidente','secretario','montoApertura','montoAhorro'];
 }

@@ -31,13 +31,15 @@
                                             <td>{{$cooperativa->nombre}}</td>
                                             <td>{{$cooperativa->mision}}</td>
                                             <td>{{$cooperativa->vision}}</td>
-                                            <td>{{$cooperativa->logo_url}}</td>
+                                            <td>
+                                                <img src="{{asset('assets/images/'.$cooperativa->logo_url) }}" alt="" width="50px">
+                                            </td>
                                             <td>
                                                 <form action="{{route('cooperativas.destroy', $cooperativa->id)}}" method="POST">
                                                     @can('editar-cooperativa')
                                                         <a href="{{ route('cooperativas.edit', $cooperativa->id) }}"  class="btn btn-primary">Editar</a>
                                                     @endcan
-                                                    @csrf
+                                                   @csrf
                                                     @method('DELETE')
                                                     @can('borrar-cooperativa')
                                                         <button type="submit" class="btn btn-danger">Borrar</button>

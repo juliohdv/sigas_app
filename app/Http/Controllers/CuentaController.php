@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
 use Alert;
+use App\Models\Cooperativa;
 use App\Models\Solicitud;
+use RealRashid\SweetAlert\Facades\Alert as FacadesAlert;
 
 class CuentaController extends Controller
 {
@@ -28,11 +30,19 @@ class CuentaController extends Controller
     public function index()
     {
         //Mostrar solo cuentas del asociado
+        $primeraAportación = Cooperativa::first();
         $emailUsuario = Auth::user()->email;
         $asociado = DB::table('solicitud')
         ->join('asociado','solicitud.id','=','asociado.solicitud_id','inner')
         ->select('asociado.id','solicitud.email1')->where('solicitud.email1','=',$emailUsuario)->get();
+        $aportado = Cuenta::where([['asociado_id','=',$asociado[0]->id],['tipo_cuenta_id','=',2]])->get(['saldo']);
         if(Auth::user()->hasRole('Asociado')){
+            if(($aportado[0]->saldo == 0.0) || ($aportado[0]->saldo < $primeraAportación->montoApertura)){
+                Alert('Debe realizar o completar la primera aportación.','La primera aportación tiene un monto de $'.$primeraAportación->montoApertura.', luego de que se haga efectiva podrá ver su carnet de asociado.','Info');
+            }else{
+                $cuentas = Cuenta::with('tipoCuenta')->where('asociado_id','=',$asociado[0]->id)->paginate(5);
+                return view('cuentas.index',compact('cuentas'));
+            }
             $cuentas = Cuenta::with('tipoCuenta')->where('asociado_id','=',$asociado[0]->id)->paginate(5);
             return view('cuentas.index',compact('cuentas'));
         }else{
@@ -96,6 +106,16 @@ class CuentaController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $cuenta = Cuenta::find($id);
+        if($request->input('saldo') != null){
+            DB::table('cuenta')->where('id','=',$id)->update(['saldo' => $cuenta->saldo + $request->input('saldo')]);
+            Alert('Abono a cuenta','El abono a la cuenta '.$cuenta->numeroCuenta.' por el monto de $'.$request->input('saldo').' se ha realizado correctamente','Success');
+            return redirect()->route('cuentas.index');
+        }else{
+            Alert('Error!','Hubo en error');
+            return redirect()->route('cuentas.index');
+        }
+        
     }
 
     /**
@@ -111,7 +131,7 @@ class CuentaController extends Controller
 
     public function abonarCuenta($idCuenta)
     {
-       Alert::html('<input type="text" name="monto" class="form-control" value="0.00">','Ingrese el monto a abonar');
-        return redirect()->route('cuentas.index');
+        $cuenta = Cuenta::where('id','=',$idCuenta)->get();   
+        return view('cuentas.abonarCuenta',compact('cuenta'));
     }
 }

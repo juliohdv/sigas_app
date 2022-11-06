@@ -10,7 +10,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <span>{{$mensaje}}</span>
                             @can('crear-solicitud')
                                 <a href="{{ route('solicitudes.create') }}" class="btn btn-warning">Nueva</a><br/>
                             @endcan
@@ -32,12 +31,15 @@
                                             <td>{{$solicitud->created_at}}</td>
                                             <td>
                                                 @if ($solicitud->estado_solicitud_id == '1')
+                                                    @can('cambiar-estado-solicitud')
                                                     <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>2]) }}" class="btn btn-primary">Aprobar</a>
+                                                    @endcan
                                                 @else
                                                     @if ($solicitud->estado_solicitud_id == '2')
+                                                    @can('cambiar-estado-solicitid')
                                                         <a href="{{ route('editarEstado', ['idSolicitud'=>$solicitud->id,'nuevoEstado'=>3]) }}" class="fa-solid fa-file-circle-xmark btn btn-primary"> Denegar</a>
+                                                        @endcan
                                                     @else
-                                                        
                                                     @endif    
                                                 @endif
                                                 <a href="{{ route('verSolicitud', ['idSolicitud'=>$solicitud->id]) }}" class="fa fa-eye btn btn-primary"> Ver</a>

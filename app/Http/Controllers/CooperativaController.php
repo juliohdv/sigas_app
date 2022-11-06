@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cooperativa;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CooperativaController extends Controller
 {
     function __construct()
     {
-        $this->middleware('permission:ver-cooperativa | crear-cooperativa | editar-cooperativa | borrar-cooperativa', ['only'=>['index']]);
+        $this->middleware('permission:ver-cooperativa|crear-cooperativa|editar-cooperativa|borrar-cooperativa', ['only'=>['index']]);
         $this->middleware('permission:crear-cooperativa', ['only'=>['create','store']]);
         $this->middleware('permission:editar-cooperativa', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-cooperativa', ['only'=>['destroy']]);
@@ -52,7 +53,25 @@ class CooperativaController extends Controller
             'vision' => 'required',
             'logo_url' => 'required',
         ]);
-        Cooperativa::create($request->all());
+        $this->validate($request,[
+            'logo_url.*'=> 'mimes:doc,pdf,docx,zip,png,jpeg',
+        ]);
+        if($request->hasFile('logo_url')){
+            $file = $request->file('logo_url');
+            $nombreArchivo=$file->getClientOriginalName();
+            $file->move(public_path().'/assets/images/',$nombreArchivo);          
+            Cooperativa::create([
+                'nombre' => $request->input('nombre'),
+                'mision' => $request->input('mision'),
+                'vision' => $request->input('vision'),
+                'logo_url' => $nombreArchivo,
+                'presidente' => $request->input('presidente'),
+                'secretario' => $request->input('secretario'),
+                'montoApertura' => $request->input('montoApertura'),
+                'montoAhorro' => $request->input('montoAhorro'),
+            ]);
+        }
+        
         return redirect()->route('cooperativas.index');
     }
 
@@ -94,6 +113,10 @@ class CooperativaController extends Controller
             'mision' => 'required',
             'vision' => 'required',
             'logo_url' => 'required',
+            'presidente' => 'required',
+            'secretario' => 'required',
+            'montoApertura' => 'required',
+            'montoAhorro' => 'required'
         ]);
         $cooperativa->update($request->all());
         return redirect()->route('cooperativas.index');

@@ -40,7 +40,31 @@
                                          <label for="vision">Visión </label>
                                          {!! Form::text('vision', null, array('class'=>'form-control')) !!}    
                                      </div> 
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="vision">Presidente </label>
+                                        {!! Form::text('presidente', null, array('class'=>'form-control')) !!}    
+                                    </div> 
+                               </div>
+                               <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="vision">Secretario </label>
+                                        {!! Form::text('secretario', null, array('class'=>'form-control')) !!}    
+                                    </div> 
+                               </div>
+                               <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="vision">Monto Apertura </label>
+                                    {!! Form::text('montoApertura', null, array('class'=>'form-control')) !!}    
                                 </div> 
+                                </div> 
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label for="vision">Monto Ahorro </label>
+                                        {!! Form::text('montoAhorro', null, array('class'=>'form-control')) !!}    
+                                    </div> 
+                               </div>  
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                  <div class="form-group">
                                      <label for="logo_url">Logo URL </label>

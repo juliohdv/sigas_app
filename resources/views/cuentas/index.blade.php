@@ -13,7 +13,6 @@
                             
                             <table class="table table-striped mt 2">
                                 <thead style="background-color: #004346">
-                                    <th style="color: #fff">ID</th>
                                     <th style="color: #fff">N° de Cuenta</th>
                                     <th style="color: #fff">Saldo</th>
                                     <th style="color: #fff">Tipo de cuenta</th>
@@ -22,11 +21,10 @@
                                 <tbody>
                                     @foreach($cuentas as $cuenta)
                                         <tr>
-                                            <td>{{$cuenta->id}}</td>
                                             <td>{{$cuenta->numeroCuenta}}</td>
                                             <td>$ {{$cuenta->saldo}}</td>
                                             <td>{{$cuenta->tipoCuenta->tipoCuenta}}</td>
-                                            <td><a href="{{ route('abonarCuenta', ['idCuenta'=>$cuenta->id]) }}" class="fa fa-money-bill btn btn-primary" id="btn-abonar"> Abonar</a></td>
+                                            <td><a href="{{ route('abonarCuenta',['idCuenta'=>$cuenta->id]) }}" class="fa fa-money-bill btn btn-primary" id="btn-abonar"> Abonar</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
