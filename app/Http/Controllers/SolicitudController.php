@@ -203,10 +203,10 @@ class SolicitudController extends Controller
         ]);
         // Referencias
         for($a=1; $a<=4; $a++){
-            if($request->input('nombreReferencia'.$a) != null && 
-            $request->input('telInternacional'.$a) != null
-            && $request->input('emailReferencia'.$a != null
-            && $request->input('tipo_referencia_id_'.$a) != null)){
+            if(($request->input('nombreReferencia'.$a) != null) && 
+            ($request->input('telInternacional'.$a) != null)
+            && ($request->input('emailReferencia'.$a) != null)
+            && ($request->input('tipo_referencia_id_'.$a) != null)){
                 Referencia::create([
                     'nombre' => $request->input('nombreReferencia'.$a),
                     'telefono' => $request->input('telInternacional'.$a),
@@ -219,11 +219,11 @@ class SolicitudController extends Controller
         };
         // Beneficiarios
         for($b=1; $b<=3; $b++){
-            if($request->input('beneficiarioNombre'.$b != null)
-                && $request->input('beneficiarioEdad'.$b != null
-                && $request->input('beneficiarioParentesco'.$b != null
-                && $request->input('porcentaje'.$b) != null))
-            ){
+            if(($request->input('beneficiarioNombre'.$b) != null)
+                && ($request->input('beneficiarioEdad'.$b) != null)
+                && ($request->input('beneficiarioParentesco'.$b) != null)
+                && ($request->input('porcentaje'.$b) != null))
+            {
                 Beneficiario::create([
                     'nombre' => $request->input('beneficiarioNombre'.$b),
                     'edad' => $request->input('beneficiarioEdad'.$b),
