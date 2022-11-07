@@ -486,7 +486,7 @@
                                     <div class="col-lg-1">
                                         <div class="form-group">
                                             <label for="">%:</label>
-                                            <input type="number" min="0" max="100" class="form-control" name="procentaje1" id="porcentaje1" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                            <input type="number" min="0" max="100" class="form-control" name="porcentaje1" id="porcentaje1" value="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
                                         </div>
                                     </div>
                                 </div>
