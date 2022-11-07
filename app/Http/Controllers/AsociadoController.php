@@ -29,7 +29,7 @@ class AsociadoController extends Controller
         ->select('asociado.id','solicitud.email1')->where('solicitud.email1','=',$emailUsuario)->get();
         $asociados = DB::table('solicitud')
         ->join('asociado','solicitud.id','=','asociado.solicitud_id','inner')
-        ->select('asociado.id','asociado.codigo','solicitud.nombres','solicitud.primerApellido','solicitud.segundoApellido','solicitud.updated_at')->where('solicitud.email1','=',$emailUsuario)->get();
+        ->select('asociado.id','asociado.codigo','solicitud.nombres','solicitud.primerApellido','solicitud.segundoApellido','solicitud.updated_at','asociado.solicitud_id')->where('solicitud.email1','=',$emailUsuario)->get();
         $aportado = Cuenta::where([['asociado_id','=',$asociado[0]->id],['tipo_cuenta_id','=',2]])->get(['saldo']);
         if($aportado[0]->saldo >= $primeraAportacion->montoApertura){
             return view('asociados.index',compact('asociados','primeraAportacion'));

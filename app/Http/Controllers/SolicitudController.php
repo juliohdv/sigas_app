@@ -95,7 +95,8 @@ class SolicitudController extends Controller
             'telInternacionalCelular1' => 'required',
             'subregiones_id' => 'required',
             'estado_civil_id' => 'required',
-            'estado_solicitud_id' => 'required'
+            'estado_solicitud_id' => 'required',
+            'foto' => 'required'
 
         ]);
         if($request->input('estado_civil_id') == 1){
@@ -233,6 +234,17 @@ class SolicitudController extends Controller
                 ]);
             }
         };
+        //Foto de perfil
+        if($request->hasFile('foto')){
+            $file = $request->file('foto');
+            $nombreArchivo=$file->getClientOriginalName();
+            $file->move(public_path().'/assets/images/',$nombreArchivo.'_'.Solicitud::latest()->first()->id);          
+            Archivo::create([
+                'nombreArchivo' => Solicitud::latest()->first()->id.'_'.$request->input('foto'),
+                'path' => $nombreArchivo,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
         // Archivos PDF o Imágenes
         $this->validate($request,[
             'filename' => 'required',
