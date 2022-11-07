@@ -308,7 +308,7 @@ class SolicitudController extends Controller
                 'asociado_id' => Asociado::latest()->first()->id,
                 'tipo_cuenta_id' => 2,
             ]);
-            $user = User::where('email',Solicitud::where('id',$idSolicitud)->first());
+            $user = User::where('email',Solicitud::where('id',$idSolicitud)->first()->email1)->first();
             $user->roles()->sync(5);
             return redirect()->route('solicitudes.index');
         }else{
