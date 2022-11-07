@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use App\Models\ActividadEconomica;
 use App\Models\Archivo;
@@ -95,7 +94,8 @@ class SolicitudController extends Controller
             'telInternacionalCelular1' => 'required',
             'subregiones_id' => 'required',
             'estado_civil_id' => 'required',
-            'estado_solicitud_id' => 'required'
+            'estado_solicitud_id' => 'required',
+            'foto' => 'required'
 
         ]);
         if($request->input('estado_civil_id') == 1){
@@ -233,6 +233,17 @@ class SolicitudController extends Controller
                 ]);
             }
         };
+        //Foto de perfil
+        if($request->hasFile('foto')){
+            $file = $request->file('foto');
+            $nombreArchivo=$file->getClientOriginalName();
+            $file->move(public_path().'/assets/images/',$nombreArchivo.'_'.Solicitud::latest()->first()->id);          
+            Archivo::create([
+                'nombreArchivo' => Solicitud::latest()->first()->id.'_'.$request->input('foto'),
+                'path' => $nombreArchivo,
+                'solicitud_id' => Solicitud::latest()->first()->id,
+            ]);
+        }
         // Archivos PDF o Imágenes
         $this->validate($request,[
             'filename' => 'required',
@@ -308,7 +319,7 @@ class SolicitudController extends Controller
                 'asociado_id' => Asociado::latest()->first()->id,
                 'tipo_cuenta_id' => 2,
             ]);
-            $user = User::where('email',Solicitud::where('id',$idSolicitud)->first());
+            $user = User::where('email',Solicitud::where('id',$idSolicitud)->first()->email1)->first();
             $user->roles()->sync(5);
             return redirect()->route('solicitudes.index');
         }else{

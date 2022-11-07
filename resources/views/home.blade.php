@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         @endrole
-                        @role('Invidato')
+                        @role('Invitado')
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4 col-xl-4">
@@ -89,7 +89,6 @@
                             </div>
                         </div>
                         @endrole
-                      
                     </div>
                 </div>
             </div>
